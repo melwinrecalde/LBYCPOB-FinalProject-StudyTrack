@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.studytrack.controller.DashboardController"
       alignment="CENTER"
       spacing="20">
 
@@ -17,6 +18,7 @@
 
     <Label text="Welcome to your study dashboard!"/>
 
-    <Button text="Start Studying"/>
+    <Button text="Start Studying"
+            onAction="#handleStartStudying"/>
 
 </VBox>
