@@ -1,4 +1,8 @@
 package com.studytrack.model;
 
-public class TaskStatus {
+public enum TaskStatus {
+
+    PENDING,
+    IN_PROGRESS,
+    COMPLETED
 }
