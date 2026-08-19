@@ -1,6 +1,6 @@
 package com.studytrack;
 
-public class Launcher {
+public class StudyTrackLauncher {
     public static void main(String[] args) {
         StudyTrackApplication.main(args);
     }

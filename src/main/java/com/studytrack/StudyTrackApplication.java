@@ -1,17 +1,20 @@
 package com.studytrack;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class StudyTrackApplication extends Application {
 
     @Override
-    public void start(Stage stage) {
-        Label label = new Label("StudyTrack");
+    public void start(Stage stage) throws Exception {
 
-        Scene scene = new Scene(label, 800, 600);
+        FXMLLoader loader = new FXMLLoader(
+                StudyTrackApplication.class.getResource("/fxml/dashboard.fxml")
+        );
+
+        Scene scene = new Scene(loader.load(), 800, 600);
 
         stage.setTitle("StudyTrack");
         stage.setScene(scene);
