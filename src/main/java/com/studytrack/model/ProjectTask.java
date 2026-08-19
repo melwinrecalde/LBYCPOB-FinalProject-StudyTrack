@@ -1,4 +1,22 @@
 package com.studytrack.model;
 
-public class ProjectTask {
+import java.time.LocalDate;
+
+public class ProjectTask extends Task {
+
+    public ProjectTask(
+            String title,
+            String description,
+            LocalDate dueDate,
+            TaskPriority priority,
+            TaskStatus status,
+            Subject subject
+    ) {
+        super(title, description, dueDate, priority, status, subject);
+    }
+
+    @Override
+    public String getTaskType() {
+        return "Project";
+    }
 }
