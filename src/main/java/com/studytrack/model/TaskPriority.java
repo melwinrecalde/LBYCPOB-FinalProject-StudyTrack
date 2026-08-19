@@ -1,4 +1,8 @@
 package com.studytrack.model;
 
-public class TaskPriority {
+public enum TaskPriority {
+
+    LOW,
+    MEDIUM,
+    HIGH
 }
