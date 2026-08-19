@@ -1,4 +1,8 @@
 package com.studytrack.model;
 
-public class Prioritizable {
+public interface Prioritizable {
+
+    TaskPriority getPriority();
+
+    void setPriority(TaskPriority priority);
 }
