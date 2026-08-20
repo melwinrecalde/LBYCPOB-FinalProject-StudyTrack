@@ -11,17 +11,33 @@
       spacing="20">
 
     <padding>
-        <Insets top="30" right="30" bottom="30" left="30"/>
+        <Insets top="30"
+                right="30"
+                bottom="30"
+                left="30"/>
     </padding>
 
     <Label text="Study Session"/>
 
     <Label text="Ready to study?"/>
 
-    <Label text="00:00:00"/>
+    <Label fx:id="timerLabel"
+           text="00:00:00"/>
 
-    <Button text="Start Session"/>
+    <Button fx:id="startSessionButton"
+            text="Start Session"
+            onAction="#handleStartSession"/>
 
-    <Button text="Back to Dashboard"/>
+    <Button fx:id="pauseSessionButton"
+            text="Pause"
+            onAction="#handlePauseSession"/>
+
+    <Button fx:id="stopSessionButton"
+            text="Stop"
+            onAction="#handleStopSession"/>
+
+    <Button fx:id="backToDashboardButton"
+            text="Back to Dashboard"
+            onAction="#handleBackToDashboard"/>
 
 </VBox>
