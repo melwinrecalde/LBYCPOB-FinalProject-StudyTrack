@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -20,6 +21,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class EditTaskController {
 
@@ -33,6 +37,9 @@ public class EditTaskController {
     private DatePicker dueDatePicker;
 
     @FXML
+    private TextField dueTimeField;
+
+    @FXML
     private ComboBox<String> taskTypeComboBox;
 
     @FXML
@@ -44,8 +51,14 @@ public class EditTaskController {
     @FXML
     private ComboBox<String> subjectComboBox;
 
+    @FXML
+    private Button cancelButton;
+
     private final TaskManager taskManager =
             TaskManager.getInstance();
+
+    private static final DateTimeFormatter TIME_FORMAT =
+            DateTimeFormatter.ofPattern("HH:mm");
 
     private Task originalTask;
 
@@ -75,6 +88,10 @@ public class EditTaskController {
                 "Web Development",
                 "Database Systems"
         );
+
+        cancelButton.setOnAction(
+                this::handleCancel
+        );
     }
 
     public void setTask(Task task) {
@@ -93,16 +110,26 @@ public class EditTaskController {
                 task.getDueDate()
         );
 
+        dueTimeField.setText(
+                task.getDueTime().format(
+                        TIME_FORMAT
+                )
+        );
+
         taskTypeComboBox.setValue(
                 task.getTaskType()
         );
 
         priorityComboBox.setValue(
-                formatPriority(task.getPriority())
+                formatPriority(
+                        task.getPriority()
+                )
         );
 
         statusComboBox.setValue(
-                formatStatus(task.getStatus())
+                formatStatus(
+                        task.getStatus()
+                )
         );
 
         subjectComboBox.setValue(
@@ -111,10 +138,16 @@ public class EditTaskController {
     }
 
     @FXML
-    private void handleSaveChanges(ActionEvent event) {
+    private void handleSaveChanges(
+            ActionEvent event
+    ) {
 
         if (originalTask == null) {
-            showError("No task selected.");
+
+            showError(
+                    "No task selected."
+            );
+
             return;
         }
 
@@ -128,32 +161,76 @@ public class EditTaskController {
                 dueDatePicker.getValue();
 
         if (title.isEmpty()) {
-            showError("Task title is required.");
+
+            showError(
+                    "Task title is required."
+            );
+
             return;
         }
 
         if (dueDate == null) {
-            showError("Due date is required.");
+
+            showError(
+                    "Due date is required."
+            );
+
+            return;
+        }
+
+        LocalTime dueTime;
+
+        try {
+
+            dueTime =
+                    LocalTime.parse(
+                            dueTimeField.getText().trim(),
+                            TIME_FORMAT
+                    );
+
+        } catch (DateTimeParseException e) {
+
+            showError(
+                    "Due time must use HH:mm format, "
+                            + "for example 23:59."
+            );
+
             return;
         }
 
         if (taskTypeComboBox.getValue() == null) {
-            showError("Task type is required.");
+
+            showError(
+                    "Task type is required."
+            );
+
             return;
         }
 
         if (priorityComboBox.getValue() == null) {
-            showError("Priority is required.");
+
+            showError(
+                    "Priority is required."
+            );
+
             return;
         }
 
         if (statusComboBox.getValue() == null) {
-            showError("Status is required.");
+
+            showError(
+                    "Status is required."
+            );
+
             return;
         }
 
         if (subjectComboBox.getValue() == null) {
-            showError("Subject is required.");
+
+            showError(
+                    "Subject is required."
+            );
+
             return;
         }
 
@@ -180,6 +257,7 @@ public class EditTaskController {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
@@ -196,23 +274,30 @@ public class EditTaskController {
 
         } catch (IllegalArgumentException e) {
 
-            showError(e.getMessage());
+            showError(
+                    e.getMessage()
+            );
         }
     }
 
-    @FXML
-    private void handleCancel(ActionEvent event) {
+    private void handleCancel(
+            ActionEvent event
+    ) {
 
         closeWindow(event);
     }
 
-    private void closeWindow(ActionEvent event) {
+    private void closeWindow(
+            ActionEvent event
+    ) {
 
         Node source =
                 (Node) event.getSource();
 
         Stage stage =
-                (Stage) source.getScene().getWindow();
+                (Stage) source
+                        .getScene()
+                        .getWindow();
 
         stage.close();
     }
@@ -222,6 +307,7 @@ public class EditTaskController {
             String title,
             String description,
             LocalDate dueDate,
+            LocalTime dueTime,
             TaskPriority priority,
             TaskStatus status,
             Subject subject
@@ -234,6 +320,7 @@ public class EditTaskController {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
@@ -244,6 +331,7 @@ public class EditTaskController {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
@@ -254,6 +342,7 @@ public class EditTaskController {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
@@ -376,7 +465,9 @@ public class EditTaskController {
                         Alert.AlertType.INFORMATION
                 );
 
-        alert.setTitle("StudyTrack");
+        alert.setTitle(
+                "StudyTrack"
+        );
 
         alert.setHeaderText(
                 "Task Updated"
@@ -398,13 +489,17 @@ public class EditTaskController {
                         Alert.AlertType.ERROR
                 );
 
-        alert.setTitle("StudyTrack");
+        alert.setTitle(
+                "StudyTrack"
+        );
 
         alert.setHeaderText(
                 "Unable to Update Task"
         );
 
-        alert.setContentText(message);
+        alert.setContentText(
+                message
+        );
 
         alert.showAndWait();
     }
