@@ -84,7 +84,8 @@
 
     </GridPane>
 
-    <Button text="Create Task"/>
+    <Button text="Create Task"
+            onAction="#handleCreateTask"/>
 
     <Button text="Cancel"/>
 
