@@ -24,7 +24,8 @@
 
         <TextField fx:id="searchField"
                    promptText="Search tasks..."
-                   prefWidth="250"/>
+                   prefWidth="250"
+                   onAction="#handleSearch"/>
 
         <ComboBox fx:id="statusFilterComboBox"
                   promptText="Filter by Status"
