@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -22,13 +24,20 @@
                 left="35"/>
     </padding>
 
-
     <!-- ========================= -->
     <!-- Header -->
     <!-- ========================= -->
 
     <VBox spacing="5"
           alignment="CENTER">
+
+        <ImageView fitWidth="100"
+                   fitHeight="100"
+                   preserveRatio="true">
+            <image>
+                <Image url="@/images/logo.png"/>
+            </image>
+        </ImageView>
 
         <Label text="StudyTrack"
                style="-fx-font-size: 30px;
@@ -41,7 +50,6 @@
 
     </VBox>
 
-
     <!-- ========================= -->
     <!-- Statistics -->
     <!-- ========================= -->
@@ -50,9 +58,7 @@
           alignment="CENTER"
           maxWidth="Infinity">
 
-
         <!-- Total Tasks -->
-
         <VBox spacing="8"
               alignment="CENTER"
               prefWidth="145"
@@ -73,12 +79,9 @@
                    style="-fx-font-size: 26px;
                           -fx-font-weight: bold;
                           -fx-text-fill: #1d4f82;"/>
-
         </VBox>
 
-
         <!-- Pending -->
-
         <VBox spacing="8"
               alignment="CENTER"
               prefWidth="145"
@@ -99,12 +102,9 @@
                    style="-fx-font-size: 26px;
                           -fx-font-weight: bold;
                           -fx-text-fill: #7a5610;"/>
-
         </VBox>
 
-
         <!-- In Progress -->
-
         <VBox spacing="8"
               alignment="CENTER"
               prefWidth="145"
@@ -125,12 +125,9 @@
                    style="-fx-font-size: 26px;
                           -fx-font-weight: bold;
                           -fx-text-fill: #5b358e;"/>
-
         </VBox>
 
-
         <!-- Completed -->
-
         <VBox spacing="8"
               alignment="CENTER"
               prefWidth="145"
@@ -151,12 +148,9 @@
                    style="-fx-font-size: 26px;
                           -fx-font-weight: bold;
                           -fx-text-fill: #27633e;"/>
-
         </VBox>
 
-
         <!-- Overdue -->
-
         <VBox spacing="8"
               alignment="CENTER"
               prefWidth="145"
@@ -177,11 +171,9 @@
                    style="-fx-font-size: 26px;
                           -fx-font-weight: bold;
                           -fx-text-fill: #a52f2f;"/>
-
         </VBox>
 
     </HBox>
-
 
     <!-- ========================= -->
     <!-- Search / Filters -->
@@ -220,7 +212,6 @@
 
     </HBox>
 
-
     <!-- ========================= -->
     <!-- Task List Header -->
     <!-- ========================= -->
@@ -235,7 +226,6 @@
 
     </HBox>
 
-
     <!-- ========================= -->
     <!-- Task List -->
     <!-- ========================= -->
@@ -249,7 +239,6 @@
                      -fx-border-color: #cbd6e2;
                      -fx-border-radius: 12;
                      -fx-background-radius: 12;"/>
-
 
     <!-- ========================= -->
     <!-- Actions -->
@@ -295,4 +284,3 @@
     </HBox>
 
 </VBox>
-
