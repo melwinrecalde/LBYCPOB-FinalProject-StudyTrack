@@ -8,6 +8,7 @@ import com.studytrack.service.TaskManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,7 +19,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.event.ActionEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -61,11 +61,11 @@ public class DashboardController {
             TaskManager.getInstance();
 
     /*
-     * Automatically refreshes the dashboard so
-     * overdue tasks and statistics update while
-     * the application is running.
+     * Automatically refreshes the dashboard
+     * so overdue tasks are detected while
+     * the application remains open.
      */
-    private Timeline dashboardRefreshTimer;
+    private Timeline autoRefreshTimer;
 
     @FXML
     private void initialize() {
@@ -97,24 +97,24 @@ public class DashboardController {
 
         refreshTaskList();
 
-        /*
-         * Refresh the dashboard every second.
-         *
-         * This allows a task to automatically become
-         * overdue while the dashboard remains open.
-         */
-        dashboardRefreshTimer = new Timeline(
-                new KeyFrame(
-                        Duration.seconds(1),
-                        event -> refreshTaskList()
-                )
-        );
+        startAutoRefresh();
+    }
 
-        dashboardRefreshTimer.setCycleCount(
+    private void startAutoRefresh() {
+
+        autoRefreshTimer =
+                new Timeline(
+                        new KeyFrame(
+                                Duration.seconds(30),
+                                event -> refreshTaskList()
+                        )
+                );
+
+        autoRefreshTimer.setCycleCount(
                 Timeline.INDEFINITE
         );
 
-        dashboardRefreshTimer.play();
+        autoRefreshTimer.play();
     }
 
     private void refreshTaskList() {
@@ -251,14 +251,6 @@ public class DashboardController {
                             .toList();
         }
 
-        /*
-         * Keep the existing task ordering:
-         *
-         * 1. Incomplete tasks first
-         * 2. Overdue tasks next
-         * 3. Earliest due date
-         * 4. Earliest due time
-         */
         tasks =
                 tasks.stream()
                         .sorted(
@@ -330,8 +322,6 @@ public class DashboardController {
     private void handleAddTask(
             ActionEvent event
     ) throws IOException {
-
-        stopDashboardRefresh();
 
         FXMLLoader loader =
                 new FXMLLoader(
@@ -501,8 +491,6 @@ public class DashboardController {
             ActionEvent event
     ) throws IOException {
 
-        stopDashboardRefresh();
-
         FXMLLoader loader =
                 new FXMLLoader(
                         getClass().getResource(
@@ -529,18 +517,6 @@ public class DashboardController {
         );
 
         stage.show();
-    }
-
-    /*
-     * Stops the automatic dashboard refresh when
-     * navigating away from the dashboard.
-     */
-    private void stopDashboardRefresh() {
-
-        if (dashboardRefreshTimer != null) {
-
-            dashboardRefreshTimer.stop();
-        }
     }
 
     private void showError(
