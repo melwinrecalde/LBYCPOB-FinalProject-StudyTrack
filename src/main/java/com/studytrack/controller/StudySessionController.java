@@ -5,11 +5,13 @@ import com.studytrack.service.TaskManager;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -17,6 +19,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
 
 public class StudySessionController {
 
@@ -53,9 +57,7 @@ public class StudySessionController {
     @FXML
     private void initialize() {
 
-        taskComboBox.getItems().setAll(
-                taskManager.getAllTasks()
-        );
+        loadTasks();
 
         taskComboBox.setCellFactory(
                 listView -> {
@@ -97,11 +99,47 @@ public class StudySessionController {
         );
     }
 
+    private void loadTasks() {
+
+        List<Task> tasks =
+                taskManager.getAllTasks();
+
+        tasks =
+                tasks.stream()
+                        .sorted(
+                                Comparator
+                                        .comparing(
+                                                Task::isCompleted
+                                        )
+                                        .thenComparing(
+                                                Task::isOverdue,
+                                                Comparator.reverseOrder()
+                                        )
+                                        .thenComparing(
+                                                Task::getDueDate
+                                        )
+                                        .thenComparing(
+                                                Task::getDueTime
+                                        )
+                        )
+                        .toList();
+
+        taskComboBox.setItems(
+                FXCollections.observableArrayList(
+                        tasks
+                )
+        );
+    }
+
     @FXML
     private void handleStartSession(
             ActionEvent event
     ) {
 
+        /*
+         * Select the task only when starting
+         * a completely new session.
+         */
         if (timer.getStatus()
                 == Timeline.Status.STOPPED) {
 
@@ -110,16 +148,28 @@ public class StudySessionController {
 
             if (activeTask == null) {
 
+                showError(
+                        "Please select a task before starting the study session."
+                );
+
                 return;
             }
         }
 
+        /*
+         * Make sure a task still exists when
+         * resuming a paused session.
+         */
         if (activeTask == null) {
 
             activeTask =
                     taskComboBox.getValue();
 
             if (activeTask == null) {
+
+                showError(
+                        "Please select a task before starting the study session."
+                );
 
                 return;
             }
@@ -253,6 +303,30 @@ public class StudySessionController {
         );
 
         stage.show();
+    }
+
+    private void showError(
+            String message
+    ) {
+
+        Alert alert =
+                new Alert(
+                        Alert.AlertType.WARNING
+                );
+
+        alert.setTitle(
+                "StudyTrack"
+        );
+
+        alert.setHeaderText(
+                "Study Session"
+        );
+
+        alert.setContentText(
+                message
+        );
+
+        alert.showAndWait();
     }
 }
 
