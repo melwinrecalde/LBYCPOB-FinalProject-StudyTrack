@@ -1,6 +1,7 @@
 package com.studytrack.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public abstract class Task implements Prioritizable {
@@ -130,8 +131,20 @@ public abstract class Task implements Prioritizable {
     }
 
     public boolean isOverdue() {
-        return !isCompleted()
-                && dueDate.isBefore(LocalDate.now());
+
+        if (isCompleted()) {
+            return false;
+        }
+
+        LocalDateTime dueDateTime =
+                LocalDateTime.of(
+                        dueDate,
+                        dueTime
+                );
+
+        return dueDateTime.isBefore(
+                LocalDateTime.now()
+        );
     }
 
     public abstract String getTaskType();
@@ -141,3 +154,4 @@ public abstract class Task implements Prioritizable {
         return title + " [" + getTaskType() + "]";
     }
 }
+
