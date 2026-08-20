@@ -98,70 +98,39 @@ public class DashboardController {
                 )
         );
 
-        updateStatistics();
+        updateTaskStatistics();
     }
 
-    private void updateStatistics() {
-
-        List<Task> allTasks =
-                taskManager.getAllTasks();
-
-        long total =
-                allTasks.size();
-
-        long pending =
-                allTasks.stream()
-                        .filter(task ->
-                                task.getStatus()
-                                        == TaskStatus.PENDING
-                        )
-                        .count();
-
-        long inProgress =
-                allTasks.stream()
-                        .filter(task ->
-                                task.getStatus()
-                                        == TaskStatus.IN_PROGRESS
-                        )
-                        .count();
-
-        long completed =
-                allTasks.stream()
-                        .filter(task ->
-                                task.getStatus()
-                                        == TaskStatus.COMPLETED
-                        )
-                        .count();
-
-        long overdue =
-                allTasks.stream()
-                        .filter(task ->
-                                task.getDueDate() != null
-                                        && task.getDueDate()
-                                        .isBefore(LocalDate.now())
-                                        && task.getStatus()
-                                        != TaskStatus.COMPLETED
-                        )
-                        .count();
+    private void updateTaskStatistics() {
 
         totalTasksLabel.setText(
-                "Total Tasks: " + total
+                String.valueOf(
+                        taskManager.getTotalTaskCount()
+                )
         );
 
         pendingTasksLabel.setText(
-                "Pending: " + pending
+                String.valueOf(
+                        taskManager.getPendingTaskCount()
+                )
         );
 
         inProgressTasksLabel.setText(
-                "In Progress: " + inProgress
+                String.valueOf(
+                        taskManager.getInProgressTaskCount()
+                )
         );
 
         completedTasksLabel.setText(
-                "Completed: " + completed
+                String.valueOf(
+                        taskManager.getCompletedTaskCount()
+                )
         );
 
         overdueTasksLabel.setText(
-                "Overdue: " + overdue
+                String.valueOf(
+                        taskManager.getOverdueTaskCount()
+                )
         );
     }
 
