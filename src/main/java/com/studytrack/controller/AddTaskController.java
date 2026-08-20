@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -177,6 +178,10 @@ public class AddTaskController {
         }
     }
 
+    /*
+     * Return to Dashboard without creating
+     * a new Scene or changing the window size.
+     */
     @FXML
     private void handleCancel(ActionEvent event) {
 
@@ -189,25 +194,20 @@ public class AddTaskController {
                             )
                     );
 
+            Parent root = loader.load();
+
             Scene scene =
-                    new Scene(
-                            loader.load(),
-                            800,
-                            600
-                    );
+                    ((Node) event.getSource())
+                            .getScene();
+
+            scene.setRoot(root);
 
             Stage stage =
-                    (Stage) ((Node) event.getSource())
-                            .getScene()
-                            .getWindow();
-
-            stage.setScene(scene);
+                    (Stage) scene.getWindow();
 
             stage.setTitle(
                     "StudyTrack - Dashboard"
             );
-
-            stage.show();
 
         } catch (IOException e) {
 
@@ -413,4 +413,3 @@ public class AddTaskController {
         alert.showAndWait();
     }
 }
-
