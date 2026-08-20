@@ -14,8 +14,8 @@ public class TaskCell extends ListCell<Task> {
     private final Label titleLabel = new Label();
     private final Label typeLabel = new Label();
     private final Label descriptionLabel = new Label();
-    private final Label subjectLabel = new Label();
     private final Label detailsLabel = new Label();
+    private final Label overdueLabel = new Label();
 
     public TaskCell() {
 
@@ -40,12 +40,13 @@ public class TaskCell extends ListCell<Task> {
                 "-fx-font-size: 13px;"
         );
 
-        subjectLabel.setStyle(
-                "-fx-font-size: 13px;"
-        );
-
         detailsLabel.setStyle(
                 "-fx-font-size: 12px;"
+        );
+
+        overdueLabel.setStyle(
+                "-fx-font-size: 13px;" +
+                        "-fx-font-weight: bold;"
         );
 
         container.setStyle(
@@ -59,8 +60,8 @@ public class TaskCell extends ListCell<Task> {
                 titleLabel,
                 typeLabel,
                 descriptionLabel,
-                subjectLabel,
-                detailsLabel
+                detailsLabel,
+                overdueLabel
         );
     }
 
@@ -106,22 +107,36 @@ public class TaskCell extends ListCell<Task> {
                 );
             }
 
-            subjectLabel.setText(
-                    "Subject: "
-                            + task.getSubject().getName()
-            );
-
             detailsLabel.setText(
                     "Due: "
                             + task.getDueDate()
+                            + " at "
+                            + task.getDueTime()
                             + " | Priority: "
                             + task.getPriority()
                             + " | Status: "
                             + task.getStatus()
             );
 
+            if (task.isOverdue()) {
+
+                overdueLabel.setText(
+                        "⚠ OVERDUE"
+                );
+
+                overdueLabel.setStyle(
+                        "-fx-font-size: 13px;" +
+                                "-fx-font-weight: bold;"
+                );
+
+            } else {
+
+                overdueLabel.setText("");
+            }
+
             setText(null);
             setGraphic(container);
         }
     }
 }
+
