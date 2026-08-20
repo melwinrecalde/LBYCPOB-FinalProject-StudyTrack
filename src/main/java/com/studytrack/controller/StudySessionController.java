@@ -63,11 +63,24 @@ public class StudySessionController {
          * the Dashboard.
          */
         taskComboBox.setCellFactory(
-                listView -> new TaskCell()
+                listView -> {
+
+                    TaskCell cell =
+                            new TaskCell();
+
+                    cell.setPrefHeight(130);
+
+                    return cell;
+                }
         );
 
+        TaskCell buttonCell =
+                new TaskCell();
+
+        buttonCell.setPrefHeight(130);
+
         taskComboBox.setButtonCell(
-                new TaskCell()
+                buttonCell
         );
 
         timer = new Timeline(
