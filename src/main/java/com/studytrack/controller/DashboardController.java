@@ -21,6 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -220,6 +221,26 @@ public class DashboardController {
                             )
                             .toList();
         }
+
+        tasks =
+                tasks.stream()
+                        .sorted(
+                                Comparator
+                                        .comparing(
+                                                Task::isCompleted
+                                        )
+                                        .thenComparing(
+                                                Task::isOverdue,
+                                                Comparator.reverseOrder()
+                                        )
+                                        .thenComparing(
+                                                Task::getDueDate
+                                        )
+                                        .thenComparing(
+                                                Task::getDueTime
+                                        )
+                        )
+                        .toList();
 
         return tasks;
     }
@@ -493,3 +514,4 @@ public class DashboardController {
         alert.showAndWait();
     }
 }
+
