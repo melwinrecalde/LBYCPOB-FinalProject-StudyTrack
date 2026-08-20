@@ -1,15 +1,55 @@
 package com.studytrack.controller;
 
-import javafx.event.ActionEvent;
+import com.studytrack.model.Task;
+import com.studytrack.service.TaskManager;
+
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
+import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class DashboardController {
+
+    @FXML
+    private ListView<String> taskListView;
+
+    private final TaskManager taskManager = TaskManager.getInstance();
+
+    @FXML
+    private void initialize() {
+        refreshTaskList();
+    }
+
+    private void refreshTaskList() {
+
+        taskListView.setItems(
+                FXCollections.observableArrayList(
+                        taskManager.getAllTasks()
+                                .stream()
+                                .map(this::formatTask)
+                                .toList()
+                )
+        );
+    }
+
+    private String formatTask(Task task) {
+
+        return task.getTitle()
+                + " | "
+                + task.getTaskType()
+                + " | Due: "
+                + task.getDueDate()
+                + " | "
+                + task.getPriority()
+                + " | "
+                + task.getStatus();
+    }
 
     @FXML
     private void handleAddTask(ActionEvent event) throws IOException {
