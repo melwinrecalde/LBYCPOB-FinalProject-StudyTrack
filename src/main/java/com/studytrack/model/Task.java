@@ -147,6 +147,24 @@ public abstract class Task implements Prioritizable {
         );
     }
 
+    public boolean isUpcoming() {
+
+        if (isCompleted()) {
+            return false;
+        }
+
+        LocalDateTime dueDateTime =
+                LocalDateTime.of(
+                        dueDate,
+                        dueTime
+                );
+
+        return !dueDateTime.isBefore(
+                LocalDateTime.now()
+        );
+    }
+
+
     public abstract String getTaskType();
 
     @Override
