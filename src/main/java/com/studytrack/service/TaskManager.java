@@ -204,15 +204,8 @@ public class TaskManager {
 
     public List<Task> getUpcomingTasks() {
 
-        LocalDate today =
-                LocalDate.now();
-
         return tasks.stream()
-                .filter(task ->
-                        !task.isCompleted()
-                                && !task.getDueDate()
-                                .isBefore(today)
-                )
+                .filter(Task::isUpcoming)
                 .collect(Collectors.toList());
     }
 
@@ -560,3 +553,4 @@ public class TaskManager {
         };
     }
 }
+
