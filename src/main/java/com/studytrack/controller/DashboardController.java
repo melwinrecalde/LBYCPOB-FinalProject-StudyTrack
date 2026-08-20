@@ -55,9 +55,16 @@ public class DashboardController {
                 "High"
         );
 
+        statusFilterComboBox.setOnAction(
+                event -> refreshTaskList()
+        );
+
+        priorityFilterComboBox.setOnAction(
+                event -> refreshTaskList()
+        );
+
         refreshTaskList();
     }
-
     private void refreshTaskList() {
 
         List<Task> tasks =
@@ -117,11 +124,13 @@ public class DashboardController {
         return task.getTitle()
                 + " | "
                 + task.getTaskType()
-                + " | Due: "
+                + "\nDescription: "
+                + task.getDescription()
+                + "\nDue: "
                 + task.getDueDate()
-                + " | "
+                + " | Priority: "
                 + task.getPriority()
-                + " | "
+                + " | Status: "
                 + task.getStatus();
     }
 
