@@ -11,14 +11,13 @@ import com.studytrack.service.TaskManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -47,7 +46,8 @@ public class AddTaskController {
     @FXML
     private ComboBox<String> subjectComboBox;
 
-    private final TaskManager taskManager = TaskManager.getInstance();
+    private final TaskManager taskManager =
+            TaskManager.getInstance();
 
     @FXML
     private void initialize() {
@@ -86,9 +86,15 @@ public class AddTaskController {
     private void handleCreateTask(ActionEvent event) {
 
         try {
-            String title = titleField.getText().trim();
-            String description = descriptionArea.getText().trim();
-            LocalDate dueDate = dueDatePicker.getValue();
+
+            String title =
+                    titleField.getText().trim();
+
+            String description =
+                    descriptionArea.getText().trim();
+
+            LocalDate dueDate =
+                    dueDatePicker.getValue();
 
             if (title.isEmpty()) {
                 showError("Task title is required.");
@@ -100,27 +106,31 @@ public class AddTaskController {
                 return;
             }
 
-            TaskPriority priority = convertPriority(
-                    priorityComboBox.getValue()
-            );
+            TaskPriority priority =
+                    convertPriority(
+                            priorityComboBox.getValue()
+                    );
 
-            TaskStatus status = convertStatus(
-                    statusComboBox.getValue()
-            );
+            TaskStatus status =
+                    convertStatus(
+                            statusComboBox.getValue()
+                    );
 
-            Subject subject = createSubject(
-                    subjectComboBox.getValue()
-            );
+            Subject subject =
+                    createSubject(
+                            subjectComboBox.getValue()
+                    );
 
-            Task task = createTask(
-                    taskTypeComboBox.getValue(),
-                    title,
-                    description,
-                    dueDate,
-                    priority,
-                    status,
-                    subject
-            );
+            Task task =
+                    createTask(
+                            taskTypeComboBox.getValue(),
+                            title,
+                            description,
+                            dueDate,
+                            priority,
+                            status,
+                            subject
+                    );
 
             taskManager.addTask(task);
 
@@ -129,8 +139,32 @@ public class AddTaskController {
             clearForm();
 
         } catch (Exception e) {
+
             showError(e.getMessage());
         }
+    }
+
+    @FXML
+    private void handleCancel(ActionEvent event)
+            throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/fxml/dashboard.fxml")
+        );
+
+        Scene scene = new Scene(
+                loader.load(),
+                800,
+                600
+        );
+
+        Stage stage = (Stage) titleField
+                .getScene()
+                .getWindow();
+
+        stage.setScene(scene);
+        stage.setTitle("StudyTrack - Dashboard");
+        stage.show();
     }
 
     private Task createTask(
@@ -145,74 +179,110 @@ public class AddTaskController {
 
         return switch (taskType) {
 
-            case "Assignment" -> new AssignmentTask(
-                    title,
-                    description,
-                    dueDate,
-                    priority,
-                    status,
-                    subject
-            );
+            case "Assignment" ->
+                    new AssignmentTask(
+                            title,
+                            description,
+                            dueDate,
+                            priority,
+                            status,
+                            subject
+                    );
 
-            case "Quiz" -> new QuizTask(
-                    title,
-                    description,
-                    dueDate,
-                    priority,
-                    status,
-                    subject
-            );
+            case "Quiz" ->
+                    new QuizTask(
+                            title,
+                            description,
+                            dueDate,
+                            priority,
+                            status,
+                            subject
+                    );
 
-            case "Project" -> new ProjectTask(
-                    title,
-                    description,
-                    dueDate,
-                    priority,
-                    status,
-                    subject
-            );
+            case "Project" ->
+                    new ProjectTask(
+                            title,
+                            description,
+                            dueDate,
+                            priority,
+                            status,
+                            subject
+                    );
 
-            default -> throw new IllegalArgumentException(
-                    "Invalid task type."
-            );
+            default ->
+                    throw new IllegalArgumentException(
+                            "Invalid task type."
+                    );
         };
     }
 
-    private TaskPriority convertPriority(String priority) {
+    private TaskPriority convertPriority(
+            String priority
+    ) {
 
         return switch (priority) {
-            case "Low" -> TaskPriority.LOW;
-            case "Medium" -> TaskPriority.MEDIUM;
-            case "High" -> TaskPriority.HIGH;
-            default -> throw new IllegalArgumentException(
-                    "Invalid priority."
-            );
+
+            case "Low" ->
+                    TaskPriority.LOW;
+
+            case "Medium" ->
+                    TaskPriority.MEDIUM;
+
+            case "High" ->
+                    TaskPriority.HIGH;
+
+            default ->
+                    throw new IllegalArgumentException(
+                            "Invalid priority."
+                    );
         };
     }
 
-    private TaskStatus convertStatus(String status) {
+    private TaskStatus convertStatus(
+            String status
+    ) {
 
         return switch (status) {
-            case "Pending" -> TaskStatus.PENDING;
-            case "In Progress" -> TaskStatus.IN_PROGRESS;
-            case "Completed" -> TaskStatus.COMPLETED;
-            default -> throw new IllegalArgumentException(
-                    "Invalid status."
-            );
+
+            case "Pending" ->
+                    TaskStatus.PENDING;
+
+            case "In Progress" ->
+                    TaskStatus.IN_PROGRESS;
+
+            case "Completed" ->
+                    TaskStatus.COMPLETED;
+
+            default ->
+                    throw new IllegalArgumentException(
+                            "Invalid status."
+                    );
         };
     }
 
-    private Subject createSubject(String subjectName) {
+    private Subject createSubject(
+            String subjectName
+    ) {
 
         return switch (subjectName) {
+
             case "Object-Oriented Programming" ->
-                    new Subject("Object-Oriented Programming", "LBYCPOB");
+                    new Subject(
+                            "Object-Oriented Programming",
+                            "LBYCPOB"
+                    );
 
             case "Web Development" ->
-                    new Subject("Web Development", "WEBDEV");
+                    new Subject(
+                            "Web Development",
+                            "WEBDEV"
+                    );
 
             case "Database Systems" ->
-                    new Subject("Database Systems", "DB");
+                    new Subject(
+                            "Database Systems",
+                            "DB"
+                    );
 
             default ->
                     throw new IllegalArgumentException(
@@ -224,21 +294,41 @@ public class AddTaskController {
     private void clearForm() {
 
         titleField.clear();
+
         descriptionArea.clear();
+
         dueDatePicker.setValue(null);
 
-        taskTypeComboBox.getSelectionModel().selectFirst();
-        priorityComboBox.getSelectionModel().select("Medium");
-        statusComboBox.getSelectionModel().select("Pending");
-        subjectComboBox.getSelectionModel().selectFirst();
+        taskTypeComboBox
+                .getSelectionModel()
+                .selectFirst();
+
+        priorityComboBox
+                .getSelectionModel()
+                .select("Medium");
+
+        statusComboBox
+                .getSelectionModel()
+                .select("Pending");
+
+        subjectComboBox
+                .getSelectionModel()
+                .selectFirst();
     }
 
     private void showSuccess() {
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert =
+                new Alert(
+                        Alert.AlertType.INFORMATION
+                );
 
         alert.setTitle("StudyTrack");
-        alert.setHeaderText("Task Created");
+
+        alert.setHeaderText(
+                "Task Created"
+        );
+
         alert.setContentText(
                 "The academic task was successfully added."
         );
@@ -246,12 +336,21 @@ public class AddTaskController {
         alert.showAndWait();
     }
 
-    private void showError(String message) {
+    private void showError(
+            String message
+    ) {
 
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert =
+                new Alert(
+                        Alert.AlertType.ERROR
+                );
 
         alert.setTitle("StudyTrack");
-        alert.setHeaderText("Unable to Create Task");
+
+        alert.setHeaderText(
+                "Unable to Create Task"
+        );
+
         alert.setContentText(message);
 
         alert.showAndWait();
