@@ -87,6 +87,8 @@
     <Button text="Create Task"
             onAction="#handleCreateTask"/>
 
-    <Button text="Cancel"/>
+    <Button text="Cancel"
+            onAction="#handleCancel"/>
+
 
 </VBox>
