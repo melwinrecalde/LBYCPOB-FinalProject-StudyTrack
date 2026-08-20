@@ -132,6 +132,11 @@ public class TaskCell extends ListCell<Task> {
             } else {
 
                 overdueLabel.setText("");
+
+                overdueLabel.setStyle(
+                        "-fx-font-size: 13px;" +
+                                "-fx-font-weight: bold;"
+                );
             }
 
             setText(null);
