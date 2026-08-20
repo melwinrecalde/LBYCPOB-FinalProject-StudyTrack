@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 
 public class TaskCell extends ListCell<Task> {
 
-    private final VBox container = new VBox(5);
+    private final VBox container = new VBox(6);
 
     private final Label titleLabel = new Label();
     private final Label typeLabel = new Label();
@@ -19,11 +19,14 @@ public class TaskCell extends ListCell<Task> {
     public TaskCell() {
 
         container.setPadding(
-                new Insets(10)
+                new Insets(12)
         );
 
+        container.setSpacing(6);
+
         titleLabel.setStyle(
-                "-fx-font-size: 16px; -fx-font-weight: bold;"
+                "-fx-font-size: 17px;" +
+                        "-fx-font-weight: bold;"
         );
 
         typeLabel.setStyle(
@@ -38,6 +41,13 @@ public class TaskCell extends ListCell<Task> {
 
         detailsLabel.setStyle(
                 "-fx-font-size: 12px;"
+        );
+
+        container.setStyle(
+                "-fx-border-color: #cccccc;" +
+                        "-fx-border-radius: 6;" +
+                        "-fx-background-radius: 6;" +
+                        "-fx-padding: 10;"
         );
 
         container.getChildren().addAll(
@@ -68,13 +78,27 @@ public class TaskCell extends ListCell<Task> {
             );
 
             typeLabel.setText(
-                    "Type: " + task.getTaskType()
+                    "Type: "
+                            + task.getTaskType()
             );
 
-            descriptionLabel.setText(
-                    "Description: "
-                            + task.getDescription()
-            );
+            String description =
+                    task.getDescription();
+
+            if (description == null
+                    || description.isBlank()) {
+
+                descriptionLabel.setText(
+                        "Description: None"
+                );
+
+            } else {
+
+                descriptionLabel.setText(
+                        "Description: "
+                                + description
+                );
+            }
 
             detailsLabel.setText(
                     "Due: "
@@ -85,6 +109,7 @@ public class TaskCell extends ListCell<Task> {
                             + task.getStatus()
             );
 
+            setText(null);
             setGraphic(container);
         }
     }
