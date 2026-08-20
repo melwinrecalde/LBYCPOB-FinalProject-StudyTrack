@@ -20,6 +20,29 @@
 
     <Label text="StudyTrack Dashboard"/>
 
+    <!-- Task Statistics -->
+
+    <HBox spacing="20">
+
+        <Label fx:id="totalTasksLabel"
+               text="Total Tasks: 0"/>
+
+        <Label fx:id="pendingTasksLabel"
+               text="Pending: 0"/>
+
+        <Label fx:id="inProgressTasksLabel"
+               text="In Progress: 0"/>
+
+        <Label fx:id="completedTasksLabel"
+               text="Completed: 0"/>
+
+        <Label fx:id="overdueTasksLabel"
+               text="Overdue: 0"/>
+
+    </HBox>
+
+    <!-- Search and Filters -->
+
     <HBox spacing="10">
 
         <TextField fx:id="searchField"
@@ -40,9 +63,13 @@
 
     </HBox>
 
+    <!-- Task List -->
+
     <ListView fx:id="taskListView"
               prefWidth="700"
               prefHeight="400"/>
+
+    <!-- Actions -->
 
     <HBox spacing="10">
 
