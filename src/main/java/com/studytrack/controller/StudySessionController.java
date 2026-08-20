@@ -10,9 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -24,7 +24,7 @@ public class StudySessionController {
     private ComboBox<Task> taskComboBox;
 
     @FXML
-    private javafx.scene.control.Label timerLabel;
+    private Label timerLabel;
 
     @FXML
     private Button startSessionButton;
@@ -45,6 +45,12 @@ public class StudySessionController {
 
     private int elapsedSeconds = 0;
 
+    /*
+     * Stores the task selected when the
+     * study session begins.
+     */
+    private Task activeTask;
+
     @FXML
     private void initialize() {
 
@@ -52,11 +58,13 @@ public class StudySessionController {
                 taskManager.getAllTasks()
         );
 
-
+        /*
+         * Use the same task tile format as
+         * the Dashboard.
+         */
         taskComboBox.setCellFactory(
                 listView -> new TaskCell()
         );
-
 
         taskComboBox.setButtonCell(
                 new TaskCell()
@@ -74,7 +82,6 @@ public class StudySessionController {
         );
 
         pauseSessionButton.setDisable(true);
-
         stopSessionButton.setDisable(true);
     }
 
@@ -83,14 +90,33 @@ public class StudySessionController {
             ActionEvent event
     ) {
 
-        if (taskComboBox.getValue() == null) {
+        /*
+         * Only select a task when starting
+         * a brand-new session.
+         */
+        if (timer.getStatus()
+                == Timeline.Status.STOPPED) {
 
-            showWarning(
-                    "Please select a task before starting "
-                            + "a study session."
-            );
+            activeTask =
+                    taskComboBox.getValue();
 
-            return;
+            if (activeTask == null) {
+                return;
+            }
+        }
+
+        /*
+         * If the timer is paused, continue
+         * using the same active task.
+         */
+        if (activeTask == null) {
+
+            activeTask =
+                    taskComboBox.getValue();
+
+            if (activeTask == null) {
+                return;
+            }
         }
 
         if (timer.getStatus()
@@ -103,8 +129,6 @@ public class StudySessionController {
             pauseSessionButton.setDisable(false);
 
             stopSessionButton.setDisable(false);
-
-            taskComboBox.setDisable(true);
         }
     }
 
@@ -151,7 +175,11 @@ public class StudySessionController {
 
         stopSessionButton.setDisable(true);
 
-        taskComboBox.setDisable(false);
+        /*
+         * Clear the active task so the next
+         * session can select a different task.
+         */
+        activeTask = null;
     }
 
     private void updateTimer() {
@@ -214,30 +242,6 @@ public class StudySessionController {
         );
 
         stage.show();
-    }
-
-    private void showWarning(
-            String message
-    ) {
-
-        Alert alert =
-                new Alert(
-                        Alert.AlertType.WARNING
-                );
-
-        alert.setTitle(
-                "StudyTrack"
-        );
-
-        alert.setHeaderText(
-                "No Task Selected"
-        );
-
-        alert.setContentText(
-                message
-        );
-
-        alert.showAndWait();
     }
 }
 
