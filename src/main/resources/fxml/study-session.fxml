@@ -9,43 +9,61 @@
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.studytrack.controller.StudySessionController"
       alignment="CENTER"
-      spacing="20">
+      spacing="15">
 
     <padding>
         <Insets top="30"
-                right="30"
+                right="40"
                 bottom="30"
-                left="30"/>
+                left="40"/>
     </padding>
 
-    <Label text="Study Session"/>
+    <Label text="Study Session"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-    <Label text="Select a task to study:"/>
+    <Label text="Select a task to study:"
+           style="-fx-font-size: 14px;"/>
 
     <ComboBox fx:id="taskComboBox"
-              prefWidth="350"
-              promptText="Select a task"/>
+              prefWidth="650"
+              prefHeight="150"
+              maxWidth="650"/>
 
-    <Label text="Ready to study?"/>
+    <Label text="Study Timer"
+           style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
 
     <Label fx:id="timerLabel"
-           text="00:00:00"/>
+           text="00:00:00"
+           style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
 
-    <Button fx:id="startSessionButton"
-            text="Start Session"
-            onAction="#handleStartSession"/>
+    <VBox spacing="10"
+          alignment="CENTER">
 
-    <Button fx:id="pauseSessionButton"
-            text="Pause"
-            onAction="#handlePauseSession"/>
+        <Button fx:id="startSessionButton"
+                text="Start Session"
+                onAction="#handleStartSession"
+                prefWidth="180"
+                prefHeight="40"/>
 
-    <Button fx:id="stopSessionButton"
-            text="Stop"
-            onAction="#handleStopSession"/>
+        <Button fx:id="pauseSessionButton"
+                text="Pause"
+                onAction="#handlePauseSession"
+                prefWidth="180"
+                prefHeight="40"/>
 
-    <Button fx:id="backToDashboardButton"
-            text="Back to Dashboard"
-            onAction="#handleBackToDashboard"/>
+        <Button fx:id="stopSessionButton"
+                text="Stop"
+                onAction="#handleStopSession"
+                prefWidth="180"
+                prefHeight="40"/>
+
+        <Button fx:id="backToDashboardButton"
+                text="Back to Dashboard"
+                onAction="#handleBackToDashboard"
+                prefWidth="180"
+                prefHeight="40"/>
+
+    </VBox>
 
 </VBox>
 
