@@ -28,6 +28,12 @@
     <Button text="Add Task"
             onAction="#handleAddTask"/>
 
+    <Button text="Edit Selected Task"
+            onAction="#handleEditTask"/>
+
+    <Button text="Delete Selected Task"
+            onAction="#handleDeleteTask"/>
+
     <Button text="Start Studying"
             onAction="#handleStartStudying"/>
 
