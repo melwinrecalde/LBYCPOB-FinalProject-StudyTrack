@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.studytrack.controller.StudySessionController"
+      alignment="CENTER"
+      spacing="20"
+      style="-fx-background-color: #F1F8F4;">
+
+    <padding>
+        <Insets top="40"
+                right="50"
+                bottom="40"
+                left="50"/>
+    </padding>
+
+    <!-- Header -->
+    <VBox alignment="CENTER"
+          spacing="5">
+
+        <Label text="Study Session"
+               style="-fx-font-size: 30px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #1B5E20;"/>
+
+        <Label text="Focus on your task and make the most of your study time"
+               style="-fx-font-size: 13px;
+                      -fx-text-fill: #607D6B;"/>
+
+    </VBox>
+
+    <!-- Main Session Card -->
+    <VBox alignment="CENTER"
+          spacing="20"
+          maxWidth="650"
+          style="-fx-background-color: white;
+                 -fx-background-radius: 16;
+                 -fx-border-radius: 16;
+                 -fx-border-color: #D5E8DA;
+                 -fx-border-width: 1;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 14, 0, 0, 4);">
+
+        <padding>
+            <Insets top="30"
+                    right="35"
+                    bottom="30"
+                    left="35"/>
+        </padding>
+
+        <!-- Task Selection -->
+        <VBox alignment="CENTER"
+              spacing="8">
+
+            <Label text="Select a task to study"
+                   style="-fx-font-size: 14px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #315A3A;"/>
+
+            <ComboBox fx:id="taskComboBox"
+                      prefWidth="580"
+                      prefHeight="42"
+                      maxWidth="580"
+                      promptText="Choose a task..."
+                      style="-fx-background-color: #F7FBF8;
+                             -fx-border-color: #C8DDCD;
+                             -fx-border-radius: 8;
+                             -fx-background-radius: 8;
+                             -fx-font-size: 13px;"/>
+
+        </VBox>
+
+        <!-- Active Task -->
+        <VBox alignment="CENTER"
+              spacing="6"
+              style="-fx-background-color: #EAF5EC;
+                     -fx-background-radius: 10;">
+
+            <padding>
+                <Insets top="14"
+                        right="20"
+                        bottom="14"
+                        left="20"/>
+            </padding>
+
+            <Label text="CURRENT TASK"
+                   style="-fx-font-size: 11px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #689F70;"/>
+
+            <Label fx:id="activeTaskLabel"
+                   text="Currently Studying: None"
+                   wrapText="true"
+                   maxWidth="560"
+                   alignment="CENTER"
+                   style="-fx-font-size: 16px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #1B5E20;"/>
+
+        </VBox>
+
+        <!-- Timer -->
+        <VBox alignment="CENTER"
+              spacing="8">
+
+            <Label text="Study Timer"
+                   style="-fx-font-size: 14px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #315A3A;"/>
+
+            <Label fx:id="timerLabel"
+                   text="00:00:00"
+                   style="-fx-font-size: 48px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #2E7D32;"/>
+
+        </VBox>
+
+        <!-- Controls -->
+        <VBox alignment="CENTER"
+              spacing="10">
+
+            <Button fx:id="startSessionButton"
+                    text="Start Session"
+                    onAction="#handleStartSession"
+                    prefWidth="220"
+                    prefHeight="42"
+                    style="-fx-background-color: #2E7D32;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 8;
+                           -fx-border-radius: 8;
+                           -fx-cursor: hand;"/>
+
+            <Button fx:id="pauseSessionButton"
+                    text="Pause"
+                    onAction="#handlePauseSession"
+                    prefWidth="220"
+                    prefHeight="42"
+                    style="-fx-background-color: #E8F1EA;
+                           -fx-text-fill: #315A3A;
+                           -fx-font-size: 14px;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 8;
+                           -fx-border-radius: 8;
+                           -fx-border-color: #C8DDCD;
+                           -fx-cursor: hand;"/>
+
+            <Button fx:id="stopSessionButton"
+                    text="Stop"
+                    onAction="#handleStopSession"
+                    prefWidth="220"
+                    prefHeight="42"
+                    style="-fx-background-color: #FBE9E7;
+                           -fx-text-fill: #B84A3A;
+                           -fx-font-size: 14px;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 8;
+                           -fx-border-radius: 8;
+                           -fx-cursor: hand;"/>
+
+            <Button fx:id="backToDashboardButton"
+                    text="Back to Dashboard"
+                    onAction="#handleBackToDashboard"
+                    prefWidth="220"
+                    prefHeight="42"
+                    style="-fx-background-color: transparent;
+                           -fx-text-fill: #2E7D32;
+                           -fx-font-size: 13px;
+                           -fx-font-weight: bold;
+                           -fx-cursor: hand;"/>
+
+        </VBox>
+
+    </VBox>
+
+</VBox>

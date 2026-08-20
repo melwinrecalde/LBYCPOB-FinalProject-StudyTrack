@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.studytrack.controller.DashboardController"
+      spacing="18"
+      alignment="TOP_CENTER"
+      styleClass="dashboard">
+
+    <padding>
+        <Insets top="30"
+                right="35"
+                bottom="30"
+                left="35"/>
+    </padding>
+
+    <!-- ========================= -->
+    <!-- Header -->
+    <!-- ========================= -->
+
+    <VBox spacing="5"
+          alignment="CENTER">
+
+        <ImageView fitWidth="100"
+                   fitHeight="100"
+                   preserveRatio="true">
+            <image>
+                <Image url="@/images/logo.png"/>
+            </image>
+        </ImageView>
+
+        <Label text="StudyTrack"
+               styleClass="app-title"/>
+
+        <Label text="Dashboard"
+               styleClass="page-title"/>
+
+    </VBox>
+
+    <!-- ========================= -->
+    <!-- Statistics -->
+    <!-- ========================= -->
+
+    <HBox spacing="15"
+          alignment="CENTER"
+          maxWidth="Infinity">
+
+        <!-- Total Tasks -->
+        <VBox spacing="8"
+              alignment="CENTER"
+              prefWidth="145"
+              prefHeight="90"
+              styleClass="stat-card, total-card">
+
+            <Label text="Total Tasks"
+                   styleClass="stat-label, total-label"/>
+
+            <Label fx:id="totalTasksLabel"
+                   text="0"
+                   styleClass="stat-number, total-number"/>
+        </VBox>
+
+        <!-- Pending -->
+        <VBox spacing="8"
+              alignment="CENTER"
+              prefWidth="145"
+              prefHeight="90"
+              styleClass="stat-card, pending-card">
+
+            <Label text="Pending"
+                   styleClass="stat-label, pending-label"/>
+
+            <Label fx:id="pendingTasksLabel"
+                   text="0"
+                   styleClass="stat-number, pending-number"/>
+        </VBox>
+
+        <!-- In Progress -->
+        <VBox spacing="8"
+              alignment="CENTER"
+              prefWidth="145"
+              prefHeight="90"
+              styleClass="stat-card, progress-card">
+
+            <Label text="In Progress"
+                   styleClass="stat-label, progress-label"/>
+
+            <Label fx:id="inProgressTasksLabel"
+                   text="0"
+                   styleClass="stat-number, progress-number"/>
+        </VBox>
+
+        <!-- Completed -->
+        <VBox spacing="8"
+              alignment="CENTER"
+              prefWidth="145"
+              prefHeight="90"
+              styleClass="stat-card, completed-card">
+
+            <Label text="Completed"
+                   styleClass="stat-label, completed-label"/>
+
+            <Label fx:id="completedTasksLabel"
+                   text="0"
+                   styleClass="stat-number, completed-number"/>
+        </VBox>
+
+        <!-- Overdue -->
+        <VBox spacing="8"
+              alignment="CENTER"
+              prefWidth="145"
+              prefHeight="90"
+              styleClass="stat-card, overdue-card">
+
+            <Label text="Overdue"
+                   styleClass="stat-label, overdue-label"/>
+
+            <Label fx:id="overdueTasksLabel"
+                   text="0"
+                   styleClass="stat-number, overdue-number"/>
+        </VBox>
+
+    </HBox>
+
+    <!-- ========================= -->
+    <!-- Search / Filters -->
+    <!-- ========================= -->
+
+    <HBox spacing="10"
+          alignment="CENTER"
+          maxWidth="Infinity">
+
+        <TextField fx:id="searchField"
+                   promptText="Search tasks..."
+                   prefWidth="300"
+                   onAction="#handleSearch"
+                   styleClass="search-field"/>
+
+        <ComboBox fx:id="statusFilterComboBox"
+                  promptText="Filter by Status"
+                  prefWidth="160"
+                  styleClass="filter-combo"/>
+
+        <ComboBox fx:id="priorityFilterComboBox"
+                  promptText="Filter by Priority"
+                  prefWidth="160"
+                  styleClass="filter-combo"/>
+
+        <Button text="Clear Filters"
+                onAction="#handleClearFilters"
+                styleClass="clear-button"/>
+
+    </HBox>
+
+    <!-- ========================= -->
+    <!-- Task List Header -->
+    <!-- ========================= -->
+
+    <HBox alignment="CENTER_LEFT"
+          maxWidth="Infinity">
+
+        <Label text="Your Tasks"
+               styleClass="section-title"/>
+
+    </HBox>
+
+    <!-- ========================= -->
+    <!-- Task List -->
+    <!-- ========================= -->
+
+    <ListView fx:id="taskListView"
+              prefWidth="900"
+              prefHeight="450"
+              VBox.vgrow="ALWAYS"
+              styleClass="task-list"/>
+
+    <!-- ========================= -->
+    <!-- Actions -->
+    <!-- ========================= -->
+
+    <HBox spacing="12"
+          alignment="CENTER">
+
+        <Button text="Add Task"
+                onAction="#handleAddTask"
+                prefWidth="120"
+                styleClass="action-button, add-button"/>
+
+        <Button text="Edit Task"
+                onAction="#handleEditTask"
+                prefWidth="120"
+                styleClass="action-button, edit-button"/>
+
+        <Button text="Delete Task"
+                onAction="#handleDeleteTask"
+                prefWidth="120"
+                styleClass="action-button, delete-button"/>
+
+        <Button text="Start Studying"
+                onAction="#handleStartStudying"
+                prefWidth="140"
+                styleClass="action-button, study-button"/>
+
+    </HBox>
+
+</VBox>

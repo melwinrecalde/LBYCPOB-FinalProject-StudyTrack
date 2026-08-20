@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.studytrack.controller.AddTaskController"
+      alignment="CENTER"
+      spacing="18"
+      style="-fx-background-color: #F1F8F4;">
+
+    <padding>
+        <Insets top="35" right="45" bottom="35" left="45"/>
+    </padding>
+
+    <!-- Header -->
+    <VBox alignment="CENTER" spacing="5">
+        <Label text="Add Academic Task"
+               style="-fx-font-size: 28px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #1B5E20;"/>
+
+        <Label text="Create a new task and keep your studies organized"
+               style="-fx-font-size: 13px;
+                      -fx-text-fill: #607D6B;"/>
+    </VBox>
+
+    <!-- Form Card -->
+    <VBox spacing="18"
+          maxWidth="650"
+          style="-fx-background-color: white;
+                 -fx-background-radius: 14;
+                 -fx-border-radius: 14;
+                 -fx-border-color: #D5E8DA;
+                 -fx-border-width: 1;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 12, 0, 0, 4);">
+
+        <padding>
+            <Insets top="28" right="32" bottom="28" left="32"/>
+        </padding>
+
+        <GridPane hgap="18" vgap="14">
+
+            <columnConstraints>
+                <ColumnConstraints minWidth="120" prefWidth="130"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <!-- Title -->
+            <Label text="Title"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="0"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #315A3A;"/>
+
+            <TextField fx:id="titleField"
+                       promptText="Enter task title"
+                       prefHeight="38"
+                       maxWidth="Infinity"
+                       GridPane.rowIndex="0"
+                       GridPane.columnIndex="1"
+                       style="-fx-background-color: #F7FBF8;
+                              -fx-border-color: #C8DDCD;
+                              -fx-border-radius: 7;
+                              -fx-background-radius: 7;
+                              -fx-padding: 8 12;
+                              -fx-font-size: 13px;"/>
+
+            <!-- Description -->
+            <Label text="Description"
+                   GridPane.rowIndex="1"
+                   GridPane.columnIndex="0"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #315A3A;"/>
+
+            <TextArea fx:id="descriptionArea"
+                      promptText="Enter task description"
+                      prefRowCount="3"
+                      wrapText="true"
+                      maxWidth="Infinity"
+                      GridPane.rowIndex="1"
+                      GridPane.columnIndex="1"
+                      style="-fx-background-color: #F7FBF8;
+                             -fx-border-color: #C8DDCD;
+                             -fx-border-radius: 7;
+                             -fx-background-radius: 7;
+                             -fx-font-size: 13px;"/>
+
+            <!-- Task Type -->
+            <Label text="Task Type"
+                   GridPane.rowIndex="2"
+                   GridPane.columnIndex="0"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #315A3A;"/>
+
+            <ComboBox fx:id="taskTypeComboBox"
+                      maxWidth="Infinity"
+                      prefHeight="38"
+                      GridPane.rowIndex="2"
+                      GridPane.columnIndex="1"
+                      style="-fx-background-color: #F7FBF8;
+                             -fx-border-color: #C8DDCD;
+                             -fx-border-radius: 7;
+                             -fx-background-radius: 7;
+                             -fx-font-size: 13px;"/>
+
+            <!-- Due Date -->
+            <Label text="Due Date"
+                   GridPane.rowIndex="3"
+                   GridPane.columnIndex="0"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #315A3A;"/>
+
+            <DatePicker fx:id="dueDatePicker"
+                        promptText="e.g. 08/25/2026"
+                        maxWidth="Infinity"
+                        prefHeight="38"
+                        GridPane.rowIndex="3"
+                        GridPane.columnIndex="1"
+                        style="-fx-background-color: #F7FBF8;
+                               -fx-border-color: #C8DDCD;
+                               -fx-border-radius: 7;
+                               -fx-background-radius: 7;
+                               -fx-font-size: 13px;"/>
+
+            <!-- Due Time -->
+            <Label text="Due Time"
+                   GridPane.rowIndex="4"
+                   GridPane.columnIndex="0"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #315A3A;"/>
+
+            <TextField fx:id="dueTimeField"
+                       promptText="e.g. 11:59 PM"
+                       prefHeight="38"
+                       maxWidth="Infinity"
+                       GridPane.rowIndex="4"
+                       GridPane.columnIndex="1"
+                       style="-fx-background-color: #F7FBF8;
+                              -fx-border-color: #C8DDCD;
+                              -fx-border-radius: 7;
+                              -fx-background-radius: 7;
+                              -fx-padding: 8 12;
+                              -fx-font-size: 13px;"/>
+
+            <!-- Priority -->
+            <Label text="Priority"
+                   GridPane.rowIndex="5"
+                   GridPane.columnIndex="0"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #315A3A;"/>
+
+            <ComboBox fx:id="priorityComboBox"
+                      maxWidth="Infinity"
+                      prefHeight="38"
+                      GridPane.rowIndex="5"
+                      GridPane.columnIndex="1"
+                      style="-fx-background-color: #F7FBF8;
+                             -fx-border-color: #C8DDCD;
+                             -fx-border-radius: 7;
+                             -fx-background-radius: 7;
+                             -fx-font-size: 13px;"/>
+
+            <!-- Status -->
+            <Label text="Status"
+                   GridPane.rowIndex="6"
+                   GridPane.columnIndex="0"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #315A3A;"/>
+
+            <ComboBox fx:id="statusComboBox"
+                      maxWidth="Infinity"
+                      prefHeight="38"
+                      GridPane.rowIndex="6"
+                      GridPane.columnIndex="1"
+                      style="-fx-background-color: #F7FBF8;
+                             -fx-border-color: #C8DDCD;
+                             -fx-border-radius: 7;
+                             -fx-background-radius: 7;
+                             -fx-font-size: 13px;"/>
+
+            <!-- Subject -->
+            <Label text="Subject"
+                   GridPane.rowIndex="7"
+                   GridPane.columnIndex="0"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #315A3A;"/>
+
+            <ComboBox fx:id="subjectComboBox"
+                      maxWidth="Infinity"
+                      prefHeight="38"
+                      GridPane.rowIndex="7"
+                      GridPane.columnIndex="1"
+                      style="-fx-background-color: #F7FBF8;
+                             -fx-border-color: #C8DDCD;
+                             -fx-border-radius: 7;
+                             -fx-background-radius: 7;
+                             -fx-font-size: 13px;"/>
+
+        </GridPane>
+
+        <!-- Buttons -->
+        <HBox alignment="CENTER_RIGHT"
+              spacing="12">
+
+            <Button text="Cancel"
+                    onAction="#handleCancel"
+                    prefWidth="110"
+                    prefHeight="40"
+                    style="-fx-background-color: #E8F1EA;
+                           -fx-text-fill: #315A3A;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 8;
+                           -fx-border-radius: 8;
+                           -fx-border-color: #C8DDCD;
+                           -fx-cursor: hand;"/>
+
+            <Button text="Create Task"
+                    onAction="#handleCreateTask"
+                    prefWidth="135"
+                    prefHeight="40"
+                    style="-fx-background-color: #2E7D32;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 8;
+                           -fx-border-radius: 8;
+                           -fx-cursor: hand;"/>
+
+        </HBox>
+
+    </VBox>
+
+</VBox>

@@ -1,0 +1,213 @@
+/* =========================
+   Main Dashboard
+   ========================= */
+
+.dashboard {
+    -fx-background-color: #F1F7F3;
+}
+
+/* =========================
+   Header
+   ========================= */
+
+.app-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #26384d;
+}
+
+.page-title {
+    -fx-font-size: 16px;
+    -fx-text-fill: #60758a;
+}
+
+/* =========================
+   Statistics Cards
+   ========================= */
+
+.stat-card {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 12;
+}
+
+.total-card {
+    -fx-background-color: #dcecff;
+    -fx-border-color: #9fc4f2;
+}
+
+.pending-card {
+    -fx-background-color: #fff1cf;
+    -fx-border-color: #e8c878;
+}
+
+.progress-card {
+    -fx-background-color: #eee2ff;
+    -fx-border-color: #c6a7ee;
+}
+
+.completed-card {
+    -fx-background-color: #dcf5e5;
+    -fx-border-color: #9dd4b2;
+}
+
+.overdue-card {
+    -fx-background-color: #ffe0e0;
+    -fx-border-color: #e5a1a1;
+}
+
+/* =========================
+   Statistics Text
+   ========================= */
+
+.stat-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.total-label {
+    -fx-text-fill: #24558a;
+}
+
+.pending-label {
+    -fx-text-fill: #8a6418;
+}
+
+.progress-label {
+    -fx-text-fill: #68419a;
+}
+
+.completed-label {
+    -fx-text-fill: #34744d;
+}
+
+.overdue-label {
+    -fx-text-fill: #9a3d3d;
+}
+
+.stat-number {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.total-number {
+    -fx-text-fill: #1d4f82;
+}
+
+.pending-number {
+    -fx-text-fill: #7a5610;
+}
+
+.progress-number {
+    -fx-text-fill: #5b358e;
+}
+
+.completed-number {
+    -fx-text-fill: #27633e;
+}
+
+.overdue-number {
+    -fx-text-fill: #a52f2f;
+}
+
+/* =========================
+   Search / Filters
+   ========================= */
+
+.search-field {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #cbd6e2;
+    -fx-border-radius: 8;
+    -fx-padding: 9;
+}
+
+.filter-combo {
+    -fx-background-color: white;
+    -fx-border-color: #cbd6e2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+/* =========================
+   Clear Filters Button
+   ========================= */
+
+.clear-button {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #53677a;
+    -fx-border-color: #cbd6e2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 9 15;
+}
+
+.clear-button:hover {
+    -fx-background-color: #eef5f1;
+}
+
+/* =========================
+   Task Section
+   ========================= */
+
+.section-title {
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #26384d;
+}
+
+/* =========================
+   Task List
+   ========================= */
+
+.task-list {
+    -fx-background-color: #ffffff;
+    -fx-control-inner-background: #ffffff;
+    -fx-border-color: #cbd6e2;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+/* =========================
+   Action Buttons
+   ========================= */
+
+.action-button {
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-padding: 10 16;
+}
+
+.add-button {
+    -fx-background-color: #4b83c4;
+    -fx-font-weight: bold;
+}
+
+.add-button:hover {
+    -fx-background-color: #3d72ad;
+}
+
+.edit-button {
+    -fx-background-color: #8064a8;
+}
+
+.edit-button:hover {
+    -fx-background-color: #705694;
+}
+
+.delete-button {
+    -fx-background-color: #c45c5c;
+}
+
+.delete-button:hover {
+    -fx-background-color: #b34e4e;
+}
+
+.study-button {
+    -fx-background-color: #4c9a6a;
+    -fx-font-weight: bold;
+}
+
+.study-button:hover {
+    -fx-background-color: #3f875b;
+}
