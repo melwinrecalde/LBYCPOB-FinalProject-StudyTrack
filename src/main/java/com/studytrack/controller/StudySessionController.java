@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -266,6 +267,10 @@ public class StudySessionController {
         );
     }
 
+    /*
+     * Return to Dashboard without creating
+     * a new Scene or changing the window size.
+     */
     @FXML
     private void handleBackToDashboard(
             ActionEvent event
@@ -283,26 +288,20 @@ public class StudySessionController {
                         )
                 );
 
+        Parent root = loader.load();
+
         Scene scene =
-                new Scene(
-                        loader.load(),
-                        800,
-                        600
-                );
+                ((Node) event.getSource())
+                        .getScene();
+
+        scene.setRoot(root);
 
         Stage stage =
-                (Stage)
-                        ((Node) event.getSource())
-                                .getScene()
-                                .getWindow();
-
-        stage.setScene(scene);
+                (Stage) scene.getWindow();
 
         stage.setTitle(
                 "StudyTrack - Dashboard"
         );
-
-        stage.show();
     }
 
     private void showError(
@@ -329,4 +328,3 @@ public class StudySessionController {
         alert.showAndWait();
     }
 }
-
