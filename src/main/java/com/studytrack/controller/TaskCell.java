@@ -9,13 +9,23 @@ import javafx.scene.layout.VBox;
 
 public class TaskCell extends ListCell<Task> {
 
-    private final VBox container = new VBox(6);
+    private final VBox container =
+            new VBox(6);
 
-    private final Label titleLabel = new Label();
-    private final Label typeLabel = new Label();
-    private final Label descriptionLabel = new Label();
-    private final Label detailsLabel = new Label();
-    private final Label overdueLabel = new Label();
+    private final Label titleLabel =
+            new Label();
+
+    private final Label typeLabel =
+            new Label();
+
+    private final Label descriptionLabel =
+            new Label();
+
+    private final Label detailsLabel =
+            new Label();
+
+    private final Label overdueLabel =
+            new Label();
 
     public TaskCell() {
 
@@ -27,33 +37,38 @@ public class TaskCell extends ListCell<Task> {
 
         titleLabel.setStyle(
                 "-fx-font-size: 17px;" +
-                        "-fx-font-weight: bold;"
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: black;"
         );
 
         typeLabel.setStyle(
-                "-fx-font-size: 13px;"
+                "-fx-font-size: 13px;" +
+                        "-fx-text-fill: black;"
         );
 
         descriptionLabel.setWrapText(true);
 
         descriptionLabel.setStyle(
-                "-fx-font-size: 13px;"
+                "-fx-font-size: 13px;" +
+                        "-fx-text-fill: black;"
         );
 
         detailsLabel.setStyle(
-                "-fx-font-size: 12px;"
+                "-fx-font-size: 12px;" +
+                        "-fx-text-fill: black;"
         );
 
         overdueLabel.setStyle(
                 "-fx-font-size: 13px;" +
-                        "-fx-font-weight: bold;"
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: red;"
         );
 
         container.setStyle(
                 "-fx-border-color: #cccccc;" +
                         "-fx-border-radius: 6;" +
                         "-fx-background-radius: 6;" +
-                        "-fx-padding: 10;"
+                        "-fx-background-color: white;"
         );
 
         container.getChildren().addAll(
@@ -71,11 +86,15 @@ public class TaskCell extends ListCell<Task> {
             boolean empty
     ) {
 
-        super.updateItem(task, empty);
+        super.updateItem(
+                task,
+                empty
+        );
 
         if (empty || task == null) {
 
             setText(null);
+
             setGraphic(null);
 
         } else {
@@ -126,21 +145,27 @@ public class TaskCell extends ListCell<Task> {
 
                 overdueLabel.setStyle(
                         "-fx-font-size: 13px;" +
-                                "-fx-font-weight: bold;"
+                                "-fx-font-weight: bold;" +
+                                "-fx-text-fill: red;"
                 );
 
             } else {
 
                 overdueLabel.setText("");
-
-                overdueLabel.setStyle(
-                        "-fx-font-size: 13px;" +
-                                "-fx-font-weight: bold;"
-                );
             }
 
             setText(null);
+
             setGraphic(container);
+
+            /*
+             * Important:
+             * Prevent JavaFX from using the default
+             * white text when this cell is selected.
+             */
+            setStyle(
+                    "-fx-background-color: white;"
+            );
         }
     }
 }
