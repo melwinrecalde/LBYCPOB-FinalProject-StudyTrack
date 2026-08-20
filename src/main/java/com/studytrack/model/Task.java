@@ -1,12 +1,14 @@
 package com.studytrack.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public abstract class Task implements Prioritizable {
 
     private String title;
     private String description;
     private LocalDate dueDate;
+    private LocalTime dueTime;
     private TaskPriority priority;
     private TaskStatus status;
     private Subject subject;
@@ -15,6 +17,7 @@ public abstract class Task implements Prioritizable {
             String title,
             String description,
             LocalDate dueDate,
+            LocalTime dueTime,
             TaskPriority priority,
             TaskStatus status,
             Subject subject
@@ -22,6 +25,7 @@ public abstract class Task implements Prioritizable {
         setTitle(title);
         setDescription(description);
         setDueDate(dueDate);
+        setDueTime(dueTime);
         setPriority(priority);
         setStatus(status);
         setSubject(subject);
@@ -33,7 +37,9 @@ public abstract class Task implements Prioritizable {
 
     public void setTitle(String title) {
         if (title == null || title.isBlank()) {
-            throw new IllegalArgumentException("Task title cannot be empty.");
+            throw new IllegalArgumentException(
+                    "Task title cannot be empty."
+            );
         }
 
         this.title = title;
@@ -53,10 +59,26 @@ public abstract class Task implements Prioritizable {
 
     public void setDueDate(LocalDate dueDate) {
         if (dueDate == null) {
-            throw new IllegalArgumentException("Due date cannot be null.");
+            throw new IllegalArgumentException(
+                    "Due date cannot be null."
+            );
         }
 
         this.dueDate = dueDate;
+    }
+
+    public LocalTime getDueTime() {
+        return dueTime;
+    }
+
+    public void setDueTime(LocalTime dueTime) {
+        if (dueTime == null) {
+            throw new IllegalArgumentException(
+                    "Due time cannot be null."
+            );
+        }
+
+        this.dueTime = dueTime;
     }
 
     @Override
@@ -67,7 +89,9 @@ public abstract class Task implements Prioritizable {
     @Override
     public void setPriority(TaskPriority priority) {
         if (priority == null) {
-            throw new IllegalArgumentException("Priority cannot be null.");
+            throw new IllegalArgumentException(
+                    "Priority cannot be null."
+            );
         }
 
         this.priority = priority;
@@ -79,7 +103,9 @@ public abstract class Task implements Prioritizable {
 
     public void setStatus(TaskStatus status) {
         if (status == null) {
-            throw new IllegalArgumentException("Status cannot be null.");
+            throw new IllegalArgumentException(
+                    "Status cannot be null."
+            );
         }
 
         this.status = status;
@@ -91,7 +117,9 @@ public abstract class Task implements Prioritizable {
 
     public void setSubject(Subject subject) {
         if (subject == null) {
-            throw new IllegalArgumentException("Subject cannot be null.");
+            throw new IllegalArgumentException(
+                    "Subject cannot be null."
+            );
         }
 
         this.subject = subject;
@@ -102,7 +130,8 @@ public abstract class Task implements Prioritizable {
     }
 
     public boolean isOverdue() {
-        return !isCompleted() && dueDate.isBefore(LocalDate.now());
+        return !isCompleted()
+                && dueDate.isBefore(LocalDate.now());
     }
 
     public abstract String getTaskType();
