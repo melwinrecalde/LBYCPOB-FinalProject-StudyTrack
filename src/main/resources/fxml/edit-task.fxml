@@ -28,6 +28,7 @@
                GridPane.columnIndex="0"/>
 
         <TextField fx:id="titleField"
+                   promptText="e.g. OOP Final Project"
                    GridPane.rowIndex="0"
                    GridPane.columnIndex="1"/>
 
@@ -36,6 +37,7 @@
                GridPane.columnIndex="0"/>
 
         <TextArea fx:id="descriptionArea"
+                  promptText="e.g. Complete the final project documentation"
                   prefRowCount="3"
                   GridPane.rowIndex="1"
                   GridPane.columnIndex="1"/>
@@ -62,7 +64,7 @@
                GridPane.columnIndex="0"/>
 
         <TextField fx:id="dueTimeField"
-                   promptText="e.g. 11:59 PM"
+                   promptText="e.g. 23:59"
                    GridPane.rowIndex="4"
                    GridPane.columnIndex="1"/>
 
