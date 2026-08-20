@@ -24,6 +24,9 @@ public class StudySessionController {
     private ComboBox<Task> taskComboBox;
 
     @FXML
+    private Label activeTaskLabel;
+
+    @FXML
     private Label timerLabel;
 
     @FXML
@@ -45,10 +48,6 @@ public class StudySessionController {
 
     private int elapsedSeconds = 0;
 
-    /*
-     * Stores the task selected when the
-     * study session begins.
-     */
     private Task activeTask;
 
     @FXML
@@ -58,10 +57,6 @@ public class StudySessionController {
                 taskManager.getAllTasks()
         );
 
-        /*
-         * Use the same task tile format as
-         * the Dashboard.
-         */
         taskComboBox.setCellFactory(
                 listView -> {
 
@@ -96,6 +91,10 @@ public class StudySessionController {
 
         pauseSessionButton.setDisable(true);
         stopSessionButton.setDisable(true);
+
+        activeTaskLabel.setText(
+                "Currently Studying: None"
+        );
     }
 
     @FXML
@@ -103,10 +102,6 @@ public class StudySessionController {
             ActionEvent event
     ) {
 
-        /*
-         * Only select a task when starting
-         * a brand-new session.
-         */
         if (timer.getStatus()
                 == Timeline.Status.STOPPED) {
 
@@ -114,23 +109,26 @@ public class StudySessionController {
                     taskComboBox.getValue();
 
             if (activeTask == null) {
+
                 return;
             }
         }
 
-        /*
-         * If the timer is paused, continue
-         * using the same active task.
-         */
         if (activeTask == null) {
 
             activeTask =
                     taskComboBox.getValue();
 
             if (activeTask == null) {
+
                 return;
             }
         }
+
+        activeTaskLabel.setText(
+                "Currently Studying: "
+                        + activeTask.getTitle()
+        );
 
         if (timer.getStatus()
                 != Timeline.Status.RUNNING) {
@@ -188,11 +186,11 @@ public class StudySessionController {
 
         stopSessionButton.setDisable(true);
 
-        /*
-         * Clear the active task so the next
-         * session can select a different task.
-         */
         activeTask = null;
+
+        activeTaskLabel.setText(
+                "Currently Studying: None"
+        );
     }
 
     private void updateTimer() {
