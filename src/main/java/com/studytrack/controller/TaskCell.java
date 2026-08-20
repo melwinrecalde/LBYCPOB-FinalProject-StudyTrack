@@ -38,37 +38,38 @@ public class TaskCell extends ListCell<Task> {
         titleLabel.setStyle(
                 "-fx-font-size: 17px;" +
                         "-fx-font-weight: bold;" +
-                        "-fx-text-fill: black;"
+                        "-fx-text-fill: #222222;"
         );
 
         typeLabel.setStyle(
                 "-fx-font-size: 13px;" +
-                        "-fx-text-fill: black;"
+                        "-fx-text-fill: #444444;"
         );
 
         descriptionLabel.setWrapText(true);
 
         descriptionLabel.setStyle(
                 "-fx-font-size: 13px;" +
-                        "-fx-text-fill: black;"
+                        "-fx-text-fill: #444444;"
         );
 
         detailsLabel.setStyle(
                 "-fx-font-size: 12px;" +
-                        "-fx-text-fill: black;"
+                        "-fx-text-fill: #555555;"
         );
 
         overdueLabel.setStyle(
                 "-fx-font-size: 13px;" +
                         "-fx-font-weight: bold;" +
-                        "-fx-text-fill: red;"
+                        "-fx-text-fill: #d32f2f;"
         );
 
         container.setStyle(
                 "-fx-border-color: #cccccc;" +
                         "-fx-border-radius: 6;" +
                         "-fx-background-radius: 6;" +
-                        "-fx-background-color: white;"
+                        "-fx-background-color: white;" +
+                        "-fx-padding: 10;"
         );
 
         container.getChildren().addAll(
@@ -94,7 +95,6 @@ public class TaskCell extends ListCell<Task> {
         if (empty || task == null) {
 
             setText(null);
-
             setGraphic(null);
 
         } else {
@@ -143,28 +143,93 @@ public class TaskCell extends ListCell<Task> {
                         "⚠ OVERDUE"
                 );
 
-                overdueLabel.setStyle(
-                        "-fx-font-size: 13px;" +
-                                "-fx-font-weight: bold;" +
-                                "-fx-text-fill: red;"
-                );
-
             } else {
 
                 overdueLabel.setText("");
             }
 
             setText(null);
-
             setGraphic(container);
 
-            /*
-             * Important:
-             * Prevent JavaFX from using the default
-             * white text when this cell is selected.
-             */
-            setStyle(
-                    "-fx-background-color: white;"
+            updateSelectionStyle();
+        }
+    }
+
+    @Override
+    public void updateSelected(
+            boolean selected
+    ) {
+
+        super.updateSelected(
+                selected
+        );
+
+        updateSelectionStyle();
+    }
+
+    private void updateSelectionStyle() {
+
+        if (isSelected()) {
+
+            container.setStyle(
+                    "-fx-border-color: #1976d2;" +
+                            "-fx-border-width: 2;" +
+                            "-fx-border-radius: 6;" +
+                            "-fx-background-radius: 6;" +
+                            "-fx-background-color: #e3f2fd;" +
+                            "-fx-padding: 10;"
+            );
+
+            titleLabel.setStyle(
+                    "-fx-font-size: 17px;" +
+                            "-fx-font-weight: bold;" +
+                            "-fx-text-fill: #0d47a1;"
+            );
+
+            typeLabel.setStyle(
+                    "-fx-font-size: 13px;" +
+                            "-fx-text-fill: #1565c0;"
+            );
+
+            descriptionLabel.setStyle(
+                    "-fx-font-size: 13px;" +
+                            "-fx-text-fill: #1565c0;"
+            );
+
+            detailsLabel.setStyle(
+                    "-fx-font-size: 12px;" +
+                            "-fx-text-fill: #0d47a1;"
+            );
+
+        } else {
+
+            container.setStyle(
+                    "-fx-border-color: #cccccc;" +
+                            "-fx-border-radius: 6;" +
+                            "-fx-background-radius: 6;" +
+                            "-fx-background-color: white;" +
+                            "-fx-padding: 10;"
+            );
+
+            titleLabel.setStyle(
+                    "-fx-font-size: 17px;" +
+                            "-fx-font-weight: bold;" +
+                            "-fx-text-fill: #222222;"
+            );
+
+            typeLabel.setStyle(
+                    "-fx-font-size: 13px;" +
+                            "-fx-text-fill: #444444;"
+            );
+
+            descriptionLabel.setStyle(
+                    "-fx-font-size: 13px;" +
+                            "-fx-text-fill: #444444;"
+            );
+
+            detailsLabel.setStyle(
+                    "-fx-font-size: 12px;" +
+                            "-fx-text-fill: #555555;"
             );
         }
     }
