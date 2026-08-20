@@ -23,6 +23,13 @@ public class StudyTrackApplication extends Application {
                 WINDOW_HEIGHT
         );
 
+        // Load external JavaFX CSS
+        scene.getStylesheets().add(
+                StudyTrackApplication.class
+                        .getResource("/styles/style.css")
+                        .toExternalForm()
+        );
+
         stage.setTitle("StudyTrack");
 
         // Keep the application window consistent

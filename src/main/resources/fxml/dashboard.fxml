@@ -15,7 +15,7 @@
       fx:controller="com.studytrack.controller.DashboardController"
       spacing="18"
       alignment="TOP_CENTER"
-      style="-fx-background-color: #F1F7F3;">
+      styleClass="dashboard">
 
     <padding>
         <Insets top="30"
@@ -40,13 +40,10 @@
         </ImageView>
 
         <Label text="StudyTrack"
-               style="-fx-font-size: 30px;
-                      -fx-font-weight: bold;
-                      -fx-text-fill: #26384d;"/>
+               styleClass="app-title"/>
 
         <Label text="Dashboard"
-               style="-fx-font-size: 16px;
-                      -fx-text-fill: #60758a;"/>
+               styleClass="page-title"/>
 
     </VBox>
 
@@ -63,22 +60,14 @@
               alignment="CENTER"
               prefWidth="145"
               prefHeight="90"
-              style="-fx-background-color: #dcecff;
-                     -fx-background-radius: 12;
-                     -fx-border-color: #9fc4f2;
-                     -fx-border-radius: 12;
-                     -fx-padding: 12;">
+              styleClass="stat-card, total-card">
 
             <Label text="Total Tasks"
-                   style="-fx-font-size: 13px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #24558a;"/>
+                   styleClass="stat-label, total-label"/>
 
             <Label fx:id="totalTasksLabel"
                    text="0"
-                   style="-fx-font-size: 26px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #1d4f82;"/>
+                   styleClass="stat-number, total-number"/>
         </VBox>
 
         <!-- Pending -->
@@ -86,22 +75,14 @@
               alignment="CENTER"
               prefWidth="145"
               prefHeight="90"
-              style="-fx-background-color: #fff1cf;
-                     -fx-background-radius: 12;
-                     -fx-border-color: #e8c878;
-                     -fx-border-radius: 12;
-                     -fx-padding: 12;">
+              styleClass="stat-card, pending-card">
 
             <Label text="Pending"
-                   style="-fx-font-size: 13px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #8a6418;"/>
+                   styleClass="stat-label, pending-label"/>
 
             <Label fx:id="pendingTasksLabel"
                    text="0"
-                   style="-fx-font-size: 26px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #7a5610;"/>
+                   styleClass="stat-number, pending-number"/>
         </VBox>
 
         <!-- In Progress -->
@@ -109,22 +90,14 @@
               alignment="CENTER"
               prefWidth="145"
               prefHeight="90"
-              style="-fx-background-color: #eee2ff;
-                     -fx-background-radius: 12;
-                     -fx-border-color: #c6a7ee;
-                     -fx-border-radius: 12;
-                     -fx-padding: 12;">
+              styleClass="stat-card, progress-card">
 
             <Label text="In Progress"
-                   style="-fx-font-size: 13px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #68419a;"/>
+                   styleClass="stat-label, progress-label"/>
 
             <Label fx:id="inProgressTasksLabel"
                    text="0"
-                   style="-fx-font-size: 26px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #5b358e;"/>
+                   styleClass="stat-number, progress-number"/>
         </VBox>
 
         <!-- Completed -->
@@ -132,22 +105,14 @@
               alignment="CENTER"
               prefWidth="145"
               prefHeight="90"
-              style="-fx-background-color: #dcf5e5;
-                     -fx-background-radius: 12;
-                     -fx-border-color: #9dd4b2;
-                     -fx-border-radius: 12;
-                     -fx-padding: 12;">
+              styleClass="stat-card, completed-card">
 
             <Label text="Completed"
-                   style="-fx-font-size: 13px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #34744d;"/>
+                   styleClass="stat-label, completed-label"/>
 
             <Label fx:id="completedTasksLabel"
                    text="0"
-                   style="-fx-font-size: 26px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #27633e;"/>
+                   styleClass="stat-number, completed-number"/>
         </VBox>
 
         <!-- Overdue -->
@@ -155,22 +120,14 @@
               alignment="CENTER"
               prefWidth="145"
               prefHeight="90"
-              style="-fx-background-color: #ffe0e0;
-                     -fx-background-radius: 12;
-                     -fx-border-color: #e5a1a1;
-                     -fx-border-radius: 12;
-                     -fx-padding: 12;">
+              styleClass="stat-card, overdue-card">
 
             <Label text="Overdue"
-                   style="-fx-font-size: 13px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #9a3d3d;"/>
+                   styleClass="stat-label, overdue-label"/>
 
             <Label fx:id="overdueTasksLabel"
                    text="0"
-                   style="-fx-font-size: 26px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #a52f2f;"/>
+                   styleClass="stat-number, overdue-number"/>
         </VBox>
 
     </HBox>
@@ -187,28 +144,21 @@
                    promptText="Search tasks..."
                    prefWidth="300"
                    onAction="#handleSearch"
-                   style="-fx-background-color: white;
-                          -fx-background-radius: 8;
-                          -fx-border-color: #cbd6e2;
-                          -fx-border-radius: 8;
-                          -fx-padding: 9;"/>
+                   styleClass="search-field"/>
 
         <ComboBox fx:id="statusFilterComboBox"
                   promptText="Filter by Status"
-                  prefWidth="160"/>
+                  prefWidth="160"
+                  styleClass="filter-combo"/>
 
         <ComboBox fx:id="priorityFilterComboBox"
                   promptText="Filter by Priority"
-                  prefWidth="160"/>
+                  prefWidth="160"
+                  styleClass="filter-combo"/>
 
         <Button text="Clear Filters"
                 onAction="#handleClearFilters"
-                style="-fx-background-color: #ffffff;
-                       -fx-text-fill: #53677a;
-                       -fx-border-color: #cbd6e2;
-                       -fx-border-radius: 8;
-                       -fx-background-radius: 8;
-                       -fx-padding: 9 15;"/>
+                styleClass="clear-button"/>
 
     </HBox>
 
@@ -220,9 +170,7 @@
           maxWidth="Infinity">
 
         <Label text="Your Tasks"
-               style="-fx-font-size: 19px;
-                      -fx-font-weight: bold;
-                      -fx-text-fill: #26384d;"/>
+               styleClass="section-title"/>
 
     </HBox>
 
@@ -234,11 +182,7 @@
               prefWidth="900"
               prefHeight="450"
               VBox.vgrow="ALWAYS"
-              style="-fx-background-color: #ffffff;
-                     -fx-control-inner-background: #ffffff;
-                     -fx-border-color: #cbd6e2;
-                     -fx-border-radius: 12;
-                     -fx-background-radius: 12;"/>
+              styleClass="task-list"/>
 
     <!-- ========================= -->
     <!-- Actions -->
@@ -250,36 +194,22 @@
         <Button text="Add Task"
                 onAction="#handleAddTask"
                 prefWidth="120"
-                style="-fx-background-color: #4b83c4;
-                       -fx-text-fill: white;
-                       -fx-font-weight: bold;
-                       -fx-background-radius: 8;
-                       -fx-padding: 10 16;"/>
+                styleClass="action-button, add-button"/>
 
         <Button text="Edit Task"
                 onAction="#handleEditTask"
                 prefWidth="120"
-                style="-fx-background-color: #8064a8;
-                       -fx-text-fill: white;
-                       -fx-background-radius: 8;
-                       -fx-padding: 10 16;"/>
+                styleClass="action-button, edit-button"/>
 
         <Button text="Delete Task"
                 onAction="#handleDeleteTask"
                 prefWidth="120"
-                style="-fx-background-color: #c45c5c;
-                       -fx-text-fill: white;
-                       -fx-background-radius: 8;
-                       -fx-padding: 10 16;"/>
+                styleClass="action-button, delete-button"/>
 
         <Button text="Start Studying"
                 onAction="#handleStartStudying"
                 prefWidth="140"
-                style="-fx-background-color: #4c9a6a;
-                       -fx-text-fill: white;
-                       -fx-font-weight: bold;
-                       -fx-background-radius: 8;
-                       -fx-padding: 10 16;"/>
+                styleClass="action-button, study-button"/>
 
     </HBox>
 
