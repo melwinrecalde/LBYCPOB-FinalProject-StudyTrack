@@ -11,6 +11,7 @@ import com.studytrack.service.TaskManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -43,29 +44,10 @@ public class EditTaskController {
     @FXML
     private ComboBox<String> subjectComboBox;
 
-    private final TaskManager taskManager = TaskManager.getInstance();
+    private final TaskManager taskManager =
+            TaskManager.getInstance();
 
     private Task originalTask;
-
-    public void setTask(Task task) {
-        this.originalTask = task;
-
-        titleField.setText(task.getTitle());
-        descriptionArea.setText(task.getDescription());
-        dueDatePicker.setValue(task.getDueDate());
-
-        taskTypeComboBox.setValue(task.getTaskType());
-        priorityComboBox.setValue(
-                formatPriority(task.getPriority())
-        );
-        statusComboBox.setValue(
-                formatStatus(task.getStatus())
-        );
-
-        subjectComboBox.setValue(
-                task.getSubject().getName()
-        );
-    }
 
     @FXML
     private void initialize() {
@@ -95,6 +77,39 @@ public class EditTaskController {
         );
     }
 
+    public void setTask(Task task) {
+
+        this.originalTask = task;
+
+        titleField.setText(
+                task.getTitle()
+        );
+
+        descriptionArea.setText(
+                task.getDescription()
+        );
+
+        dueDatePicker.setValue(
+                task.getDueDate()
+        );
+
+        taskTypeComboBox.setValue(
+                task.getTaskType()
+        );
+
+        priorityComboBox.setValue(
+                formatPriority(task.getPriority())
+        );
+
+        statusComboBox.setValue(
+                formatStatus(task.getStatus())
+        );
+
+        subjectComboBox.setValue(
+                task.getSubject().getName()
+        );
+    }
+
     @FXML
     private void handleSaveChanges(ActionEvent event) {
 
@@ -103,9 +118,14 @@ public class EditTaskController {
             return;
         }
 
-        String title = titleField.getText().trim();
-        String description = descriptionArea.getText().trim();
-        LocalDate dueDate = dueDatePicker.getValue();
+        String title =
+                titleField.getText().trim();
+
+        String description =
+                descriptionArea.getText().trim();
+
+        LocalDate dueDate =
+                dueDatePicker.getValue();
 
         if (title.isEmpty()) {
             showError("Task title is required.");
@@ -117,26 +137,53 @@ public class EditTaskController {
             return;
         }
 
+        if (taskTypeComboBox.getValue() == null) {
+            showError("Task type is required.");
+            return;
+        }
+
+        if (priorityComboBox.getValue() == null) {
+            showError("Priority is required.");
+            return;
+        }
+
+        if (statusComboBox.getValue() == null) {
+            showError("Status is required.");
+            return;
+        }
+
+        if (subjectComboBox.getValue() == null) {
+            showError("Subject is required.");
+            return;
+        }
+
         try {
 
             TaskPriority priority =
-                    convertPriority(priorityComboBox.getValue());
+                    convertPriority(
+                            priorityComboBox.getValue()
+                    );
 
             TaskStatus status =
-                    convertStatus(statusComboBox.getValue());
+                    convertStatus(
+                            statusComboBox.getValue()
+                    );
 
             Subject subject =
-                    createSubject(subjectComboBox.getValue());
+                    createSubject(
+                            subjectComboBox.getValue()
+                    );
 
-            Task updatedTask = createTask(
-                    taskTypeComboBox.getValue(),
-                    title,
-                    description,
-                    dueDate,
-                    priority,
-                    status,
-                    subject
-            );
+            Task updatedTask =
+                    createTask(
+                            taskTypeComboBox.getValue(),
+                            title,
+                            description,
+                            dueDate,
+                            priority,
+                            status,
+                            subject
+                    );
 
             taskManager.updateTask(
                     originalTask,
@@ -148,13 +195,26 @@ public class EditTaskController {
             closeWindow(event);
 
         } catch (IllegalArgumentException e) {
+
             showError(e.getMessage());
         }
     }
 
     @FXML
     private void handleCancel(ActionEvent event) {
+
         closeWindow(event);
+    }
+
+    private void closeWindow(ActionEvent event) {
+
+        Node source =
+                (Node) event.getSource();
+
+        Stage stage =
+                (Stage) source.getScene().getWindow();
+
+        stage.close();
     }
 
     private Task createTask(
@@ -169,64 +229,90 @@ public class EditTaskController {
 
         return switch (taskType) {
 
-            case "Assignment" -> new AssignmentTask(
-                    title,
-                    description,
-                    dueDate,
-                    priority,
-                    status,
-                    subject
-            );
+            case "Assignment" ->
+                    new AssignmentTask(
+                            title,
+                            description,
+                            dueDate,
+                            priority,
+                            status,
+                            subject
+                    );
 
-            case "Quiz" -> new QuizTask(
-                    title,
-                    description,
-                    dueDate,
-                    priority,
-                    status,
-                    subject
-            );
+            case "Quiz" ->
+                    new QuizTask(
+                            title,
+                            description,
+                            dueDate,
+                            priority,
+                            status,
+                            subject
+                    );
 
-            case "Project" -> new ProjectTask(
-                    title,
-                    description,
-                    dueDate,
-                    priority,
-                    status,
-                    subject
-            );
+            case "Project" ->
+                    new ProjectTask(
+                            title,
+                            description,
+                            dueDate,
+                            priority,
+                            status,
+                            subject
+                    );
 
-            default -> throw new IllegalArgumentException(
-                    "Invalid task type."
-            );
+            default ->
+                    throw new IllegalArgumentException(
+                            "Invalid task type."
+                    );
         };
     }
 
-    private TaskPriority convertPriority(String priority) {
+    private TaskPriority convertPriority(
+            String priority
+    ) {
 
         return switch (priority) {
-            case "Low" -> TaskPriority.LOW;
-            case "Medium" -> TaskPriority.MEDIUM;
-            case "High" -> TaskPriority.HIGH;
-            default -> throw new IllegalArgumentException(
-                    "Invalid priority."
-            );
+
+            case "Low" ->
+                    TaskPriority.LOW;
+
+            case "Medium" ->
+                    TaskPriority.MEDIUM;
+
+            case "High" ->
+                    TaskPriority.HIGH;
+
+            default ->
+                    throw new IllegalArgumentException(
+                            "Invalid priority."
+                    );
         };
     }
 
-    private TaskStatus convertStatus(String status) {
+    private TaskStatus convertStatus(
+            String status
+    ) {
 
         return switch (status) {
-            case "Pending" -> TaskStatus.PENDING;
-            case "In Progress" -> TaskStatus.IN_PROGRESS;
-            case "Completed" -> TaskStatus.COMPLETED;
-            default -> throw new IllegalArgumentException(
-                    "Invalid status."
-            );
+
+            case "Pending" ->
+                    TaskStatus.PENDING;
+
+            case "In Progress" ->
+                    TaskStatus.IN_PROGRESS;
+
+            case "Completed" ->
+                    TaskStatus.COMPLETED;
+
+            default ->
+                    throw new IllegalArgumentException(
+                            "Invalid status."
+                    );
         };
     }
 
-    private Subject createSubject(String subjectName) {
+    private Subject createSubject(
+            String subjectName
+    ) {
 
         return switch (subjectName) {
 
@@ -248,46 +334,54 @@ public class EditTaskController {
                             "DB"
                     );
 
-            default -> throw new IllegalArgumentException(
-                    "Invalid subject."
-            );
+            default ->
+                    throw new IllegalArgumentException(
+                            "Invalid subject."
+                    );
         };
     }
 
-    private String formatPriority(TaskPriority priority) {
+    private String formatPriority(
+            TaskPriority priority
+    ) {
 
         return switch (priority) {
+
             case LOW -> "Low";
+
             case MEDIUM -> "Medium";
+
             case HIGH -> "High";
         };
     }
 
-    private String formatStatus(TaskStatus status) {
+    private String formatStatus(
+            TaskStatus status
+    ) {
 
         return switch (status) {
+
             case PENDING -> "Pending";
+
             case IN_PROGRESS -> "In Progress";
+
             case COMPLETED -> "Completed";
         };
     }
 
-    private void closeWindow(ActionEvent event) {
-
-        Stage stage = (Stage)
-                titleField.getScene().getWindow();
-
-        stage.close();
-    }
-
     private void showSuccess() {
 
-        Alert alert = new Alert(
-                Alert.AlertType.INFORMATION
-        );
+        Alert alert =
+                new Alert(
+                        Alert.AlertType.INFORMATION
+                );
 
         alert.setTitle("StudyTrack");
-        alert.setHeaderText("Task Updated");
+
+        alert.setHeaderText(
+                "Task Updated"
+        );
+
         alert.setContentText(
                 "The task was successfully updated."
         );
@@ -295,14 +389,21 @@ public class EditTaskController {
         alert.showAndWait();
     }
 
-    private void showError(String message) {
+    private void showError(
+            String message
+    ) {
 
-        Alert alert = new Alert(
-                Alert.AlertType.ERROR
-        );
+        Alert alert =
+                new Alert(
+                        Alert.AlertType.ERROR
+                );
 
         alert.setTitle("StudyTrack");
-        alert.setHeaderText("Unable to Update Task");
+
+        alert.setHeaderText(
+                "Unable to Update Task"
+        );
+
         alert.setContentText(message);
 
         alert.showAndWait();
