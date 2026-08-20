@@ -11,8 +11,6 @@ import com.studytrack.service.TaskManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -20,8 +18,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class AddTaskController {
 
@@ -33,6 +33,9 @@ public class AddTaskController {
 
     @FXML
     private DatePicker dueDatePicker;
+
+    @FXML
+    private TextField dueTimeField;
 
     @FXML
     private ComboBox<String> taskTypeComboBox;
@@ -48,6 +51,9 @@ public class AddTaskController {
 
     private final TaskManager taskManager =
             TaskManager.getInstance();
+
+    private static final DateTimeFormatter TIME_FORMAT =
+            DateTimeFormatter.ofPattern("HH:mm");
 
     @FXML
     private void initialize() {
@@ -80,6 +86,8 @@ public class AddTaskController {
         priorityComboBox.getSelectionModel().select("Medium");
         statusComboBox.getSelectionModel().select("Pending");
         subjectComboBox.getSelectionModel().selectFirst();
+
+        dueTimeField.setText("23:59");
     }
 
     @FXML
@@ -106,6 +114,26 @@ public class AddTaskController {
                 return;
             }
 
+            LocalTime dueTime;
+
+            try {
+
+                dueTime =
+                        LocalTime.parse(
+                                dueTimeField.getText().trim(),
+                                TIME_FORMAT
+                        );
+
+            } catch (DateTimeParseException e) {
+
+                showError(
+                        "Due time must use HH:mm format, "
+                                + "for example 23:59."
+                );
+
+                return;
+            }
+
             TaskPriority priority =
                     convertPriority(
                             priorityComboBox.getValue()
@@ -127,6 +155,7 @@ public class AddTaskController {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
@@ -145,26 +174,14 @@ public class AddTaskController {
     }
 
     @FXML
-    private void handleCancel(ActionEvent event)
-            throws IOException {
+    private void handleCancel(ActionEvent event) {
 
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/fxml/dashboard.fxml")
-        );
+        Stage stage =
+                (Stage) titleField
+                        .getScene()
+                        .getWindow();
 
-        Scene scene = new Scene(
-                loader.load(),
-                800,
-                600
-        );
-
-        Stage stage = (Stage) titleField
-                .getScene()
-                .getWindow();
-
-        stage.setScene(scene);
-        stage.setTitle("StudyTrack - Dashboard");
-        stage.show();
+        stage.close();
     }
 
     private Task createTask(
@@ -172,6 +189,7 @@ public class AddTaskController {
             String title,
             String description,
             LocalDate dueDate,
+            LocalTime dueTime,
             TaskPriority priority,
             TaskStatus status,
             Subject subject
@@ -184,6 +202,7 @@ public class AddTaskController {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
@@ -194,6 +213,7 @@ public class AddTaskController {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
@@ -204,6 +224,7 @@ public class AddTaskController {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
@@ -298,6 +319,8 @@ public class AddTaskController {
         descriptionArea.clear();
 
         dueDatePicker.setValue(null);
+
+        dueTimeField.setText("23:59");
 
         taskTypeComboBox
                 .getSelectionModel()
