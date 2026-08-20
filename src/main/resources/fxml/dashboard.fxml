@@ -24,20 +24,35 @@
 
     <HBox spacing="20">
 
-        <Label fx:id="totalTasksLabel"
-               text="Total Tasks: 0"/>
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="Total Tasks"/>
+            <Label fx:id="totalTasksLabel"
+                   text="0"/>
+        </VBox>
 
-        <Label fx:id="pendingTasksLabel"
-               text="Pending: 0"/>
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="Pending"/>
+            <Label fx:id="pendingTasksLabel"
+                   text="0"/>
+        </VBox>
 
-        <Label fx:id="inProgressTasksLabel"
-               text="In Progress: 0"/>
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="In Progress"/>
+            <Label fx:id="inProgressTasksLabel"
+                   text="0"/>
+        </VBox>
 
-        <Label fx:id="completedTasksLabel"
-               text="Completed: 0"/>
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="Completed"/>
+            <Label fx:id="completedTasksLabel"
+                   text="0"/>
+        </VBox>
 
-        <Label fx:id="overdueTasksLabel"
-               text="Overdue: 0"/>
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="Overdue"/>
+            <Label fx:id="overdueTasksLabel"
+                   text="0"/>
+        </VBox>
 
     </HBox>
 
