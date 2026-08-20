@@ -52,6 +52,20 @@ public class TaskManager {
         tasks.set(index, updatedTask);
     }
 
+    public void updateTask(Task oldTask, Task updatedTask) {
+        if (oldTask == null || updatedTask == null) {
+            throw new IllegalArgumentException("Task cannot be null.");
+        }
+
+        int index = tasks.indexOf(oldTask);
+
+        if (index == -1) {
+            throw new IllegalArgumentException("Task does not exist.");
+        }
+
+        tasks.set(index, updatedTask);
+    }
+
     // Delete
     public void deleteTask(Task task) {
         if (task == null) {
