@@ -11,10 +11,16 @@ import java.util.stream.Collectors;
 
 public class TaskManager {
 
+    private static final TaskManager INSTANCE = new TaskManager();
+
     private final List<Task> tasks;
 
     public TaskManager() {
         tasks = new ArrayList<>();
+    }
+
+    public static TaskManager getInstance() {
+        return INSTANCE;
     }
 
     // Create
