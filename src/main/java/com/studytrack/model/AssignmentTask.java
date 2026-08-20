@@ -1,6 +1,7 @@
 package com.studytrack.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class AssignmentTask extends Task {
 
@@ -8,11 +9,20 @@ public class AssignmentTask extends Task {
             String title,
             String description,
             LocalDate dueDate,
+            LocalTime dueTime,
             TaskPriority priority,
             TaskStatus status,
             Subject subject
     ) {
-        super(title, description, dueDate, priority, status, subject);
+        super(
+                title,
+                description,
+                dueDate,
+                dueTime,
+                priority,
+                status,
+                subject
+        );
     }
 
     @Override
