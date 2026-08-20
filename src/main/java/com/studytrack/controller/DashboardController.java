@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,21 @@ public class DashboardController {
 
     @FXML
     private ListView<Task> taskListView;
+
+    @FXML
+    private Label totalTasksLabel;
+
+    @FXML
+    private Label pendingTasksLabel;
+
+    @FXML
+    private Label inProgressTasksLabel;
+
+    @FXML
+    private Label completedTasksLabel;
+
+    @FXML
+    private Label overdueTasksLabel;
 
     @FXML
     private TextField searchField;
@@ -79,6 +96,72 @@ public class DashboardController {
                 FXCollections.observableArrayList(
                         tasks
                 )
+        );
+
+        updateStatistics();
+    }
+
+    private void updateStatistics() {
+
+        List<Task> allTasks =
+                taskManager.getAllTasks();
+
+        long total =
+                allTasks.size();
+
+        long pending =
+                allTasks.stream()
+                        .filter(task ->
+                                task.getStatus()
+                                        == TaskStatus.PENDING
+                        )
+                        .count();
+
+        long inProgress =
+                allTasks.stream()
+                        .filter(task ->
+                                task.getStatus()
+                                        == TaskStatus.IN_PROGRESS
+                        )
+                        .count();
+
+        long completed =
+                allTasks.stream()
+                        .filter(task ->
+                                task.getStatus()
+                                        == TaskStatus.COMPLETED
+                        )
+                        .count();
+
+        long overdue =
+                allTasks.stream()
+                        .filter(task ->
+                                task.getDueDate() != null
+                                        && task.getDueDate()
+                                        .isBefore(LocalDate.now())
+                                        && task.getStatus()
+                                        != TaskStatus.COMPLETED
+                        )
+                        .count();
+
+        totalTasksLabel.setText(
+                "Total Tasks: " + total
+        );
+
+        pendingTasksLabel.setText(
+                "Pending: " + pending
+        );
+
+        inProgressTasksLabel.setText(
+                "In Progress: " + inProgress
+        );
+
+        completedTasksLabel.setText(
+                "Completed: " + completed
+        );
+
+        overdueTasksLabel.setText(
+                "Overdue: " + overdue
         );
     }
 
