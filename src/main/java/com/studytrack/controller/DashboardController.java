@@ -26,7 +26,7 @@ import java.util.Optional;
 public class DashboardController {
 
     @FXML
-    private ListView<String> taskListView;
+    private ListView<Task> taskListView;
 
     @FXML
     private TextField searchField;
@@ -63,9 +63,52 @@ public class DashboardController {
                 event -> refreshTaskList()
         );
 
+        taskListView.setCellFactory(
+                listView -> new TaskCell()
+        );
+
         refreshTaskList();
     }
+
     private void refreshTaskList() {
+
+        List<Task> tasks =
+                getFilteredTasks();
+
+        taskListView.setItems(
+                FXCollections.observableArrayList(
+                        tasks
+                )
+        );
+    }
+
+    @FXML
+    private void handleSearch(
+            ActionEvent event
+    ) {
+
+        refreshTaskList();
+    }
+
+    @FXML
+    private void handleClearFilters(
+            ActionEvent event
+    ) {
+
+        searchField.clear();
+
+        statusFilterComboBox
+                .getSelectionModel()
+                .clearSelection();
+
+        priorityFilterComboBox
+                .getSelectionModel()
+                .clearSelection();
+
+        refreshTaskList();
+    }
+
+    private List<Task> getFilteredTasks() {
 
         List<Task> tasks =
                 taskManager.getAllTasks();
@@ -73,9 +116,13 @@ public class DashboardController {
         String keyword =
                 searchField.getText();
 
-        if (keyword != null && !keyword.isBlank()) {
+        if (keyword != null
+                && !keyword.isBlank()) {
+
             tasks =
-                    taskManager.searchTasks(keyword);
+                    taskManager.searchTasks(
+                            keyword
+                    );
         }
 
         String status =
@@ -89,7 +136,8 @@ public class DashboardController {
             tasks =
                     tasks.stream()
                             .filter(task ->
-                                    task.getStatus() == taskStatus
+                                    task.getStatus()
+                                            == taskStatus
                             )
                             .toList();
         }
@@ -105,55 +153,13 @@ public class DashboardController {
             tasks =
                     tasks.stream()
                             .filter(task ->
-                                    task.getPriority() == taskPriority
+                                    task.getPriority()
+                                            == taskPriority
                             )
                             .toList();
         }
 
-        taskListView.setItems(
-                FXCollections.observableArrayList(
-                        tasks.stream()
-                                .map(this::formatTask)
-                                .toList()
-                )
-        );
-    }
-
-    private String formatTask(Task task) {
-
-        return task.getTitle()
-                + " | "
-                + task.getTaskType()
-                + "\nDescription: "
-                + task.getDescription()
-                + "\nDue: "
-                + task.getDueDate()
-                + " | Priority: "
-                + task.getPriority()
-                + " | Status: "
-                + task.getStatus();
-    }
-
-    @FXML
-    private void handleSearch(ActionEvent event) {
-
-        refreshTaskList();
-    }
-
-    @FXML
-    private void handleClearFilters(ActionEvent event) {
-
-        searchField.clear();
-
-        statusFilterComboBox
-                .getSelectionModel()
-                .clearSelection();
-
-        priorityFilterComboBox
-                .getSelectionModel()
-                .clearSelection();
-
-        refreshTaskList();
+        return tasks;
     }
 
     private TaskStatus convertStatus(
@@ -366,60 +372,6 @@ public class DashboardController {
 
             refreshTaskList();
         }
-    }
-
-    private List<Task> getFilteredTasks() {
-
-        List<Task> tasks =
-                taskManager.getAllTasks();
-
-        String keyword =
-                searchField.getText();
-
-        if (keyword != null
-                && !keyword.isBlank()) {
-
-            tasks =
-                    taskManager.searchTasks(
-                            keyword
-                    );
-        }
-
-        String status =
-                statusFilterComboBox.getValue();
-
-        if (status != null) {
-
-            TaskStatus taskStatus =
-                    convertStatus(status);
-
-            tasks =
-                    tasks.stream()
-                            .filter(task ->
-                                    task.getStatus()
-                                            == taskStatus
-                            )
-                            .toList();
-        }
-
-        String priority =
-                priorityFilterComboBox.getValue();
-
-        if (priority != null) {
-
-            TaskPriority taskPriority =
-                    convertPriority(priority);
-
-            tasks =
-                    tasks.stream()
-                            .filter(task ->
-                                    task.getPriority()
-                                            == taskPriority
-                            )
-                            .toList();
-        }
-
-        return tasks;
     }
 
     @FXML
