@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 
 public class TaskManager {
 
+    private static final Path DATA_FILE =
+            Paths.get("data", "tasks.dat");
+
     private static final TaskManager INSTANCE =
             new TaskManager();
 
     private final List<Task> tasks;
-
-    private static final Path DATA_FILE =
-            Paths.get("data", "tasks.dat");
 
     public TaskManager() {
 
