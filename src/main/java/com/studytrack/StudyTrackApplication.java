@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 public class StudyTrackApplication extends Application {
 
+    public static final double WINDOW_WIDTH = 1000;
+    public static final double WINDOW_HEIGHT = 700;
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -14,9 +17,18 @@ public class StudyTrackApplication extends Application {
                 StudyTrackApplication.class.getResource("/fxml/dashboard.fxml")
         );
 
-        Scene scene = new Scene(loader.load(), 800, 600);
+        Scene scene = new Scene(
+                loader.load(),
+                WINDOW_WIDTH,
+                WINDOW_HEIGHT
+        );
 
         stage.setTitle("StudyTrack");
+
+        // Keep the application window consistent
+        stage.setMinWidth(WINDOW_WIDTH);
+        stage.setMinHeight(WINDOW_HEIGHT);
+
         stage.setScene(scene);
         stage.show();
     }
