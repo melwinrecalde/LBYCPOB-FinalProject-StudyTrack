@@ -53,31 +53,41 @@
                GridPane.columnIndex="0"/>
 
         <DatePicker fx:id="dueDatePicker"
+                    promptText="e.g. 08/25/2026"
                     GridPane.rowIndex="3"
                     GridPane.columnIndex="1"/>
 
-        <Label text="Priority:"
+        <Label text="Due Time:"
                GridPane.rowIndex="4"
                GridPane.columnIndex="0"/>
 
-        <ComboBox fx:id="priorityComboBox"
-                  GridPane.rowIndex="4"
-                  GridPane.columnIndex="1"/>
+        <TextField fx:id="dueTimeField"
+                   promptText="e.g. 11:59 PM"
+                   GridPane.rowIndex="4"
+                   GridPane.columnIndex="1"/>
 
-        <Label text="Status:"
+        <Label text="Priority:"
                GridPane.rowIndex="5"
                GridPane.columnIndex="0"/>
 
-        <ComboBox fx:id="statusComboBox"
+        <ComboBox fx:id="priorityComboBox"
                   GridPane.rowIndex="5"
                   GridPane.columnIndex="1"/>
 
-        <Label text="Subject:"
+        <Label text="Status:"
                GridPane.rowIndex="6"
                GridPane.columnIndex="0"/>
 
-        <ComboBox fx:id="subjectComboBox"
+        <ComboBox fx:id="statusComboBox"
                   GridPane.rowIndex="6"
+                  GridPane.columnIndex="1"/>
+
+        <Label text="Subject:"
+               GridPane.rowIndex="7"
+               GridPane.columnIndex="0"/>
+
+        <ComboBox fx:id="subjectComboBox"
+                  GridPane.rowIndex="7"
                   GridPane.columnIndex="1"/>
 
     </GridPane>
@@ -85,7 +95,7 @@
     <Button text="Save Changes"
             onAction="#handleSaveChanges"/>
 
-    <Button text="Cancel"
-            onAction="#handleCancel"/>
+    <Button fx:id="cancelButton"
+            text="Cancel"/>
 
 </VBox>
