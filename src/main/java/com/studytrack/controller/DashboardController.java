@@ -91,7 +91,8 @@ public class DashboardController {
                 getClass().getResource("/fxml/edit-task.fxml")
         );
 
-        Scene scene = new Scene(loader.load(), 800, 600);
+        Scene scene =
+                new Scene(loader.load(), 800, 600);
 
         EditTaskController controller =
                 loader.getController();
