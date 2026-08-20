@@ -11,7 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -318,6 +318,12 @@ public class DashboardController {
         };
     }
 
+    /*
+     * Switch to Add Task screen.
+     *
+     * The existing Scene is kept.
+     * Only its root is replaced.
+     */
     @FXML
     private void handleAddTask(
             ActionEvent event
@@ -330,25 +336,20 @@ public class DashboardController {
                         )
                 );
 
+        Parent root = loader.load();
+
         Scene scene =
-                new Scene(
-                        loader.load(),
-                        800,
-                        600
-                );
+                ((javafx.scene.Node) event.getSource())
+                        .getScene();
+
+        scene.setRoot(root);
 
         Stage stage =
-                (Stage) ((Node) event.getSource())
-                        .getScene()
-                        .getWindow();
-
-        stage.setScene(scene);
+                (Stage) scene.getWindow();
 
         stage.setTitle(
                 "StudyTrack - Add Task"
         );
-
-        stage.show();
     }
 
     @FXML
@@ -486,6 +487,12 @@ public class DashboardController {
         }
     }
 
+    /*
+     * Switch to Study Session screen.
+     *
+     * The existing Scene is kept.
+     * Only its root is replaced.
+     */
     @FXML
     private void handleStartStudying(
             ActionEvent event
@@ -498,25 +505,20 @@ public class DashboardController {
                         )
                 );
 
+        Parent root = loader.load();
+
         Scene scene =
-                new Scene(
-                        loader.load(),
-                        800,
-                        600
-                );
+                ((javafx.scene.Node) event.getSource())
+                        .getScene();
+
+        scene.setRoot(root);
 
         Stage stage =
-                (Stage) ((Node) event.getSource())
-                        .getScene()
-                        .getWindow();
-
-        stage.setScene(scene);
+                (Stage) scene.getWindow();
 
         stage.setTitle(
                 "StudyTrack - Study Session"
         );
-
-        stage.show();
     }
 
     private void showError(
@@ -543,4 +545,3 @@ public class DashboardController {
         alert.showAndWait();
     }
 }
-
