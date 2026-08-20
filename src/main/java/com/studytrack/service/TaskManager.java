@@ -12,11 +12,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -300,11 +300,16 @@ public class TaskManager {
                                  )
                          )) {
 
-                output.writeInt(tasks.size());
+                output.writeInt(
+                        tasks.size()
+                );
 
                 for (Task task : tasks) {
 
-                    writeTask(output, task);
+                    writeTask(
+                            output,
+                            task
+                    );
                 }
             }
 
@@ -388,6 +393,10 @@ public class TaskManager {
         );
 
         output.writeUTF(
+                task.getDueTime().toString()
+        );
+
+        output.writeUTF(
                 task.getPriority().name()
         );
 
@@ -416,6 +425,9 @@ public class TaskManager {
         String dueDateString =
                 input.readUTF();
 
+        String dueTimeString =
+                input.readUTF();
+
         String priorityString =
                 input.readUTF();
 
@@ -430,6 +442,11 @@ public class TaskManager {
                         dueDateString
                 );
 
+        LocalTime dueTime =
+                LocalTime.parse(
+                        dueTimeString
+                );
+
         TaskPriority priority =
                 TaskPriority.valueOf(
                         priorityString
@@ -441,13 +458,16 @@ public class TaskManager {
                 );
 
         Subject subject =
-                createSubject(subjectName);
+                createSubject(
+                        subjectName
+                );
 
         return createTask(
                 taskType,
                 title,
                 description,
                 dueDate,
+                dueTime,
                 priority,
                 status,
                 subject
@@ -459,6 +479,7 @@ public class TaskManager {
             String title,
             String description,
             LocalDate dueDate,
+            LocalTime dueTime,
             TaskPriority priority,
             TaskStatus status,
             Subject subject
@@ -471,6 +492,7 @@ public class TaskManager {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
@@ -481,6 +503,7 @@ public class TaskManager {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
@@ -491,6 +514,7 @@ public class TaskManager {
                             title,
                             description,
                             dueDate,
+                            dueTime,
                             priority,
                             status,
                             subject
