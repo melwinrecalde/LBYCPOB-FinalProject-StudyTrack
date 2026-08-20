@@ -21,7 +21,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,7 +62,8 @@ public class DashboardController {
         statusFilterComboBox.getItems().addAll(
                 "Pending",
                 "In Progress",
-                "Completed"
+                "Completed",
+                "Overdue"
         );
 
         priorityFilterComboBox.getItems().addAll(
@@ -182,16 +182,26 @@ public class DashboardController {
 
         if (status != null) {
 
-            TaskStatus taskStatus =
-                    convertStatus(status);
+            if (status.equals("Overdue")) {
 
-            tasks =
-                    tasks.stream()
-                            .filter(task ->
-                                    task.getStatus()
-                                            == taskStatus
-                            )
-                            .toList();
+                tasks =
+                        tasks.stream()
+                                .filter(Task::isOverdue)
+                                .toList();
+
+            } else {
+
+                TaskStatus taskStatus =
+                        convertStatus(status);
+
+                tasks =
+                        tasks.stream()
+                                .filter(task ->
+                                        task.getStatus()
+                                                == taskStatus
+                                )
+                                .toList();
+            }
         }
 
         String priority =
