@@ -11,6 +11,9 @@ import com.studytrack.service.TaskManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -18,6 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -176,12 +180,42 @@ public class AddTaskController {
     @FXML
     private void handleCancel(ActionEvent event) {
 
-        Stage stage =
-                (Stage) titleField
-                        .getScene()
-                        .getWindow();
+        try {
 
-        stage.close();
+            FXMLLoader loader =
+                    new FXMLLoader(
+                            getClass().getResource(
+                                    "/fxml/dashboard.fxml"
+                            )
+                    );
+
+            Scene scene =
+                    new Scene(
+                            loader.load(),
+                            800,
+                            600
+                    );
+
+            Stage stage =
+                    (Stage) ((Node) event.getSource())
+                            .getScene()
+                            .getWindow();
+
+            stage.setScene(scene);
+
+            stage.setTitle(
+                    "StudyTrack - Dashboard"
+            );
+
+            stage.show();
+
+        } catch (IOException e) {
+
+            showError(
+                    "Unable to return to dashboard: "
+                            + e.getMessage()
+            );
+        }
     }
 
     private Task createTask(
@@ -379,3 +413,4 @@ public class AddTaskController {
         alert.showAndWait();
     }
 }
+
