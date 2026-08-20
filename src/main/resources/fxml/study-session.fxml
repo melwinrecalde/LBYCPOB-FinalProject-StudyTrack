@@ -29,6 +29,12 @@
               prefHeight="150"
               maxWidth="650"/>
 
+    <Label fx:id="activeTaskLabel"
+           text="Currently Studying: None"
+           wrapText="true"
+           maxWidth="650"
+           style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
     <Label text="Study Timer"
            style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
 
