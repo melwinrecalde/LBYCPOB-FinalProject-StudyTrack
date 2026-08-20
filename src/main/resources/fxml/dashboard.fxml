@@ -16,7 +16,10 @@
 
     <Label text="StudyTrack"/>
 
-    <Label text="Welcome to your study dashboard!"/>
+    <Label text="Student Task &amp; Deadline Manager"/>
+
+    <Button text="Add Task"
+            onAction="#handleAddTask"/>
 
     <Button text="Start Studying"
             onAction="#handleStartStudying"/>
